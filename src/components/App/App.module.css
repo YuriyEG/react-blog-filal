@@ -1,0 +1,10 @@
+
+
+.app {
+
+    background-color: rgba(235, 238, 243, 1);
+    width: 1440px;
+    min-height: 977px;
+    margin: 0 auto;
+    padding-bottom: 60px;
+}

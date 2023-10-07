@@ -1,0 +1,331 @@
+@font-face {
+    font-family: "Regular";
+    src: url('Inter-Regular.ttf');
+}
+
+@font-face {
+    font-family: "Medium";
+    src: url('Inter-Medium.ttf');
+}
+
+.article {
+
+    font-family: "Regular", Arial, Helvetica, sans-serif;
+    width: 941px;
+    min-height: 807px;
+    box-shadow: 0px 4px 12px 0px rgba(0, 0, 0, 0.15);
+    background-color: white;
+    margin-bottom: 28px;
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    box-sizing: border-box;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 62px;
+    
+
+}
+
+.article__headWrapper {
+    width: 916px;
+    height: 110px;
+    display: flex;
+    flex-direction: row;
+}
+
+.article__left {
+    width: 75%;
+    display: flex;
+    flex-direction: column;
+}
+
+
+.article__title {
+    height: 28px;
+    line-height: 28px;
+    font-size: 20px;
+    color: rgba(24, 144, 255, 1);
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+
+}
+
+.article__titleBox {
+    max-width: 550px;
+    overflow: hidden;
+}
+
+.article__like {
+    height: 16px;
+    width: 16px;
+
+    display: inline-block;
+    margin-left: 14px;
+    align-self: center;
+    background-image: url('./Vector.svg');
+    background-repeat: no-repeat;
+}
+.article__liked {
+    height: 16px;
+    width: 16px;
+
+    display: inline-block;
+    margin-left: 14px;
+    align-self: center;
+    background-image: url('./Liked.svg');
+    background-repeat: no-repeat;
+}
+
+.article__count {
+
+    height: 22px;
+    line-height: 22px;
+    font-size: 12px;
+    color: rgba(0, 0, 0, 0.75);
+    display: inline;
+    align-self: center;
+    margin-left: 4px;
+}
+
+.article__tags {
+
+    height: 20px;
+    margin-top: 8px;
+    display: flex;
+    flex-direction: row;
+    overflow: hidden;
+    
+
+
+}
+
+.article__tag {
+    height: 20px;
+    min-width: 30px;
+    border: 1px solid rgba(0, 0, 0, 0.5);
+    border-radius: 2px;
+    margin-right: 8px;
+    padding-left: 4px;
+    padding-right: 4px;
+    padding-top: 1px;
+    text-align: center;
+    vertical-align: middle;
+    font-size: 12px;
+    color: rgba(0, 0, 0, 0.5);
+    box-sizing: border-box;
+
+}
+
+.article__description {
+    width: 682px;
+    height: 45px;
+    margin-top: 4px;
+    line-height: 22px;
+    font-size: 12px;
+    color: rgba(0, 0, 0, 0.75);
+    overflow: hidden;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    box-sizing: border-box;
+    white-space: pre-wrap;
+}
+.article__right {
+    width: 224px;
+}
+
+.article__buttonWrapper {
+    width: 224px;
+    height: 60px;
+
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    padding-top: 26px;
+    padding-left: 40px;
+    position: relative;
+
+
+}
+
+.article__dialog {
+    width: 246px;
+    height: 104px;
+    position: absolute;
+  
+    right: -168px;
+    top: 24px;
+    box-sizing: border-box;
+}
+
+.article__dialogInside {
+    width: 240px;
+    height: 104px;
+    margin-left: auto;
+    background-color: rgb(255, 255, 255);
+    position: relative;
+    box-shadow: 0px 2px 8px 0px rgba(0, 0, 0, 0.15);
+    border-radius: 4px;
+    padding-top: 12px;
+    padding-left: 36px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding-right: 18px;
+    padding-bottom: 14px;
+
+}
+
+.article__question {
+    width: 208px;
+    height: 44px;
+    color: rgba(89, 89, 89, 1);
+    font-size: 14px;
+    line-height: 22px;
+    font-family: "Medium", Arial, Helvetica, sans-serif;
+    font-weight: 400;
+    
+}
+
+.article__buttons {
+    width: 82px;
+    height: 24px;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: space-between;
+    align-self: flex-end;
+    
+}
+
+.article__buttonNo {
+    border-radius: 4px;
+    border: 1px solid rgba(217, 217, 217, 1);
+    background-color: white;
+    width: 34px;
+    height: 24px;
+    color: rgba(89, 89, 89, 1);
+    box-sizing: border-box;
+
+}
+
+.article__buttonYes {
+    border-radius: 4px;
+    background-color: rgba(24, 144, 255, 1);
+    width: 40px;
+    height: 24px;
+    border: none;
+    box-sizing: border-box;
+    color: rgba(255, 255, 255, 1);
+}
+
+.article__circle {
+    background-image: url('./circle.svg');
+    position: absolute;
+    z-index: 12;
+  
+    width: 18px;
+    height: 18px;
+    background-repeat: no-repeat;
+    background-size: 100%;
+    left: 12px;
+    top: 15px;
+}
+
+.article__dialogAngle {
+    width: 20px;
+    height: 20px;
+    position: absolute;
+    z-index: 10;
+    background-color: white;
+    
+    left: 0px;
+    top: 8px;
+    transform: rotate(45deg);
+}
+
+.article__deleteButton {
+    width: 78px;
+    height: 32px;
+    border: 1px solid rgba(245, 34, 45, 1);
+    border-radius: 5px;
+    color: rgba(245, 34, 45, 1);
+    box-sizing: border-box;
+    padding: 6px;
+    text-align: center;
+    margin-right: 12px;
+    
+    font-size: 14px;
+    
+}
+
+.article__editButton {
+    width: 66px;
+    height: 32px;
+    border: 1px solid rgba(82, 196, 26, 1);
+    border-radius: 5px;
+    color: rgba(82, 196, 26, 1);
+    box-sizing: border-box;
+    padding: 6px;
+    text-align: center;
+    font-size: 14px;
+}
+
+.article__profileCard {
+    width: 220px;
+    height: 46px;
+    margin-left: auto;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+}
+
+.article__cardIcon {
+    width: 46px;
+    height: 46px;
+    border-radius: 50%;
+    overflow: hidden;
+  
+    margin-left: 12px;
+    
+    
+}
+
+.article__info {
+    width: 160px;
+
+}
+
+.article__name {
+    width: 100%;
+    height: 28px;
+    line-height: 28px;
+    font-size: 18px;
+    color: rgba(0, 0, 0, 0.85);
+    text-align: right;
+    font-weight: 400;
+    overflow: hidden;
+
+}
+
+.article__date {
+    width: 100%;
+    height: 14px;
+    line-height: 14px;
+    font-size: 12px;
+    color: rgba(0, 0, 0, 0.5);
+    font-weight: 100;
+    text-align: right;
+}
+
+.article__body {
+    width: 880px;
+    min-height: 685px;
+    margin-top: 20px;
+    color: rgba(0, 0, 0, 0.75);
+    font-size: 18px;
+}

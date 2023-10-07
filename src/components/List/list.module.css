@@ -1,0 +1,23 @@
+
+.list {
+
+    margin-top: 60px;
+    width: 938px;
+    min-height: 140px;
+    margin-left: auto;
+    margin-right: auto;
+    padding-bottom: 28px;
+
+
+}
+
+.list__pagination {
+
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    width: 100%;
+ 
+
+    
+}

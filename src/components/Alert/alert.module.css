@@ -1,0 +1,56 @@
+
+@font-face {
+    font-family: "Regular";
+    src: url('Inter-Regular.ttf');
+}
+
+@font-face {
+    font-family: "Medium";
+    src: url('Inter-Medium.ttf');
+}
+
+
+.alert__off {
+
+
+    display: none;
+}
+
+.alert__on {
+
+    margin-left: auto;
+    margin-right: auto;
+    width: 940px;
+    height: 0px;
+
+    background-color: white;
+    position: relative;
+
+}
+
+.alert__body {
+
+    position: absolute;
+    width: 800px;
+    height: 110px;
+    background-color: rgb(255, 255, 255);
+    margin-top: 200px;
+    margin-left: 60px;
+    box-sizing: border-box;
+    padding: 40px;
+
+    
+    box-shadow: 0px 0.6087964177131653px 2.9332919120788574px 0px rgba(0, 0, 0, 0.159);
+    box-shadow: 0px 1.4630224704742432px 7.049108028411865px 0px rgba(0, 0, 0, 0.144);
+    box-shadow: 0px 2.7547414302825928px 13.272845268249512px 0px rgba(0, 0, 0, 0.132);
+    box-shadow: 0px 4.91398811340332px 23.67648696899414px 0px rgba(0, 0, 0, 0.147);
+    box-shadow: 0px 9.19107437133789px 44.28426742553711px 0px rgba(0, 0, 0, 0.129);
+    box-shadow: 0px 22px 106px 0px rgba(0, 0, 0, 0.193);
+    z-index: 11;
+    border-radius: 5px;
+    text-align: center;
+    font-family: "Regular", Arial, Helvetica, sans-serif;
+    font-size: 18px;
+    color: rgba(0, 0, 0, 0.645);
+}
+

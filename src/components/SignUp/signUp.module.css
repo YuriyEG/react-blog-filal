@@ -1,0 +1,142 @@
+@font-face {
+    font-family: "Regular";
+    src: url('./Inter-Regular.ttf');
+}
+
+.signUp {
+    border: 1px solid rgba(217, 217, 217, 1);
+    border-radius: 6px;
+    width: 384px;
+    height: auto;
+    margin-left: auto;
+    margin-right: auto;
+    
+    box-shadow: 0px 0.6087964177131653px 2.9332919120788574px 0px rgba(0, 0, 0, 0.0197);
+
+    box-shadow: 0px 1.4630224704742432px 7.049108028411865px 0px rgba(0, 0, 0, 0.0283);
+    
+    box-shadow: 0px 2.7547414302825928px 13.272845268249512px 0px rgba(0, 0, 0, 0.035);
+    
+    box-shadow: 0px 4.91398811340332px 23.67648696899414px 0px rgba(0, 0, 0, 0.0417);
+    
+    box-shadow: 0px 9.19107437133789px 44.28426742553711px 0px rgba(0, 0, 0, 0.0503);
+    
+    box-shadow: 0px 22px 106px 0px rgba(0, 0, 0, 0.07);
+    ;
+    background-color: white;
+    
+    font-family: "Regular", Arial, Helvetica, sans-serif;
+    box-sizing: border-box;
+
+    margin-top: 60px;
+    padding-bottom: 56px;
+
+}
+
+.signUp__form {
+    width: 320px;
+    height: auto;
+    margin-left: auto;
+    margin-right: auto;   
+}
+
+.signUp__title {
+    width: 100%;
+    height: 28px;
+    font-size: 20px;
+    line-height: 28px;
+    font-weight: 800;
+    text-align: center;
+    margin-top: 52px;
+    margin-bottom: 20px;
+    box-sizing: border-box;
+    
+    
+}
+
+.signUp__password {
+    width: 320px;
+    height: 22px;
+    font-size: 14px;
+    box-sizing: border-box;
+}
+
+.signUp__description {
+
+    width: 320px;
+    height: 22px;
+    font-size: 14px;
+    box-sizing: border-box;
+
+
+
+}
+
+.signUp__submit {
+    width: 320px;
+    height: 40px;
+    background: rgba(24, 144, 255, 1);
+    border: none;
+    border-radius: 4px;
+    line-height: 24px;
+    font-size: 16px;
+    color: white;
+    box-sizing: border-box;
+    margin-top: 10px;
+}
+
+.signUp__label {
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 12px;
+    box-sizing: border-box;
+ 
+}
+
+.signUp__input {
+    width: 320px;
+    height: 40px;
+    margin-top: 4px;
+    text-indent: 10px;
+    border-radius: 4px;
+    border: 1px solid rgba(217, 217, 217, 1);
+    box-sizing: border-box;
+    
+}
+
+
+
+
+
+.signUp__input::-webkit-input-placeholder { 
+    color: rgba(191, 191, 191, 1);
+    font-size: 16px;
+    box-sizing: border-box;
+
+}
+
+.signUp__question {
+    width: 100%;
+    height: 20px;
+    font-size: 12px;
+    color: rgba(140, 140, 140, 1);
+    text-align: center;
+    margin-top: 8px;
+}
+
+.signUp__questionBlue {
+    color: rgba(24, 144, 255, 1);
+    text-decoration: none;
+}
+
+.signUp__warning {
+    width: 100%;
+    height: 20px;
+    font-size: 12px;
+    color: rgba(245, 34, 45, 1);
+    text-align: center;
+    margin-top: 8px;
+    font-size: 14px;
+    letter-spacing: -0.5px;
+    margin-top: 4px;
+}
