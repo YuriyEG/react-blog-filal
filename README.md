@@ -1,5 +1,5 @@
 
-https://react-kata-blog-4-j3psxl73q-yuriyeg.vercel.app/
+https://yuriyeg-ho4aza0iw-yuriyeg.vercel.app/articles
 
 
 # Getting Started with Create React App
