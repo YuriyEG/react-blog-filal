@@ -1,6 +1,6 @@
 /* eslint-disable */
 
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 
 import format from 'date-fns/format';
 import { ar } from 'date-fns/locale';
@@ -9,9 +9,9 @@ import Markdown from 'react-markdown';
 
 import styles from './article.module.css';
 import { withRouter } from 'react-router-dom';
-import ServiceApi from '../../ServiceAPI/ServiceAPI';
+import ServiceContext from '../../context';
 import Alert from '../Alert';
-const service = new ServiceApi();
+
 
 const Article = ({itemId, history, auth, curUser, setErrorState }) => {
 
@@ -23,8 +23,9 @@ const Article = ({itemId, history, auth, curUser, setErrorState }) => {
   const [likeCount, setLikeCount] = useState(0);
   const [likedList, setLikedList] = useState([]);
 
+  const testService = useContext(ServiceContext);
   useEffect( () => {
-      service.getArticle(itemId, (res) => setArticle(res.article), (err) => console.log(err));
+      testService.getArticle(itemId, (res) => setArticle(res.article), (err) => console.log(err));
       if( !localStorage.getItem('liked_list')) {
         localStorage.setItem('liked_list', JSON.stringify([]));
       } else {
@@ -78,7 +79,7 @@ const Article = ({itemId, history, auth, curUser, setErrorState }) => {
   }
 
   const confirmationHandler = () => {
-    service.deleteArticle(itemId, (res) => {
+    testService.deleteArticle(itemId, (res) => {
       setErrorState({status: true, message: 'Статья удалена!'});
       setTimeout(() => {
         setErrorState({status: false, message: '' })
@@ -105,7 +106,7 @@ const Article = ({itemId, history, auth, curUser, setErrorState }) => {
   const addToFavorites = () => {
     if (auth.auth) {
           if (!likedFlag) {
-      service.toFavorites(itemId, (res) => console.log('result',res), (err) => console.log('error:', err));
+      testService.toFavorites(itemId, (res) => console.log('result',res), (err) => console.log('error:', err));
       setLikedFlag(true);
       setLikeCount(() => likeCount + 1)
       let curList = JSON.parse(localStorage.getItem('liked_list'));
@@ -116,7 +117,7 @@ const Article = ({itemId, history, auth, curUser, setErrorState }) => {
         setErrorState({status: false, message: '' })
       }, 1500);
     } else {
-      service.unFavorites(itemId, (res) => console.log('result',res), (err) => console.log('error:', err));
+      testService.unFavorites(itemId, (res) => console.log('result',res), (err) => console.log('error:', err));
       setLikedFlag(false);
       setLikeCount(() => likeCount - 1);
       let curList = JSON.parse(localStorage.getItem('liked_list'));

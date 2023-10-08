@@ -1,14 +1,15 @@
 /* eslint-disable */
 
-import React, { useEffect, useState, setErrorState } from 'react';
+import React, { useEffect, useState, setErrorState, useContext } from 'react';
 import { useForm } from 'react-hook-form';
 import { Link, withRouter } from 'react-router-dom';
 import Check from '../Check';
-import ServiseAPI from '../../ServiceAPI/ServiceAPI';
 import styles from './signUp.module.css';
-const service = new ServiseAPI();
+import ServiceContext from '../../context';
 
 const SignUp = ({ history, setErrorState }) => {
+
+  const testService = useContext(ServiceContext);
   const {
     register,
     formState: { errors, isValid },
@@ -33,7 +34,7 @@ const SignUp = ({ history, setErrorState }) => {
 
   const onSubmit = (data) => {
     if (password === password2) {
-      service.createUser(
+      testService.createUser(
         data,
         (res) => {
           localStorage.setItem('token', res.user.token);

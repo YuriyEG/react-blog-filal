@@ -1,7 +1,8 @@
 /* eslint-disable */
-
-class ServiceApi {
+import { Component } from "react";
+class ServiceApi extends Component {
   constructor() {
+    super();
     this.baseUrl = 'https://blog.kata.academy/api/';
     this.forUsers = 'users/';
     this.user = 'user/';

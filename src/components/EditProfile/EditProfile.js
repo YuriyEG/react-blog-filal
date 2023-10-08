@@ -1,18 +1,18 @@
 /* eslint-disable */
 
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useState, useRef, useContext } from 'react';
 import { useForm } from 'react-hook-form';
 
-import ServiceApi from '../../ServiceAPI/ServiceAPI';
+
 import { withRouter } from 'react-router-dom';
 
 import styles from './editProfile.module.css';
 
-const service = new ServiceApi();
+import ServiceContext from '../../context';
 
 const EditProfile = ({ curUser, history, setErrorState }) => {
 
-  
+  const testService = useContext(ServiceContext);
   useEffect(() => {
     if (curUser.user) {
       const { user } = curUser;
@@ -40,7 +40,7 @@ const EditProfile = ({ curUser, history, setErrorState }) => {
   const onSubmit = (data) => {
     
     console.log(data);
-    service.updateCurrentUser(
+    testService.updateCurrentUser(
       { user: data },
 
       (res) => {

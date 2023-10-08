@@ -1,16 +1,16 @@
 /* eslint-disable */
 
 import React, { useEffect, useState } from 'react';
+import { useContext } from 'react';
 
 
 import { useForm } from 'react-hook-form';
 import { Link } from 'react-router-dom';
-import ServiseAPI from '../../ServiceAPI/ServiceAPI';
+import ServiceContext from '../../context';
 import { withRouter } from 'react-router-dom';
 
 import styles from './editArticle.module.css';
 
-const service = new ServiseAPI();
 
 const EditArticle = ({slug, history, setErrorState }) => {
 
@@ -24,8 +24,10 @@ const EditArticle = ({slug, history, setErrorState }) => {
 
   const [article, setArticle] = useState({});
 
+  const testService = useContext(ServiceContext);
+
   useEffect( () => {
-      service.getArticle(slug, (res) => setArticle(res.article), (err) => console.log(err));
+      testService.getArticle(slug, (res) => setArticle(res.article), (err) => console.log(err));
       console.log('otrabotalo');
   }, []);
 
@@ -36,9 +38,7 @@ const EditArticle = ({slug, history, setErrorState }) => {
       receivedTags.push( { id: Math.random()*Date.now(), value: tag })
     });
     setTags(receivedTags);
-    // setTitle(article.title);
-    // setDescription(article.description);
-    // setBody(article.body);
+
     document.getElementById('title')
     .value = article.title;
   document.getElementById('description')
@@ -79,7 +79,7 @@ const EditArticle = ({slug, history, setErrorState }) => {
 
 
 
-      service.editArticle(
+      testService.editArticle(
         slug,
         dataWithTags,
         

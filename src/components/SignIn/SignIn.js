@@ -1,17 +1,18 @@
 /* eslint-disable */
 
-import React from 'react';
+import React, { useCallback } from 'react';
+import { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { withRouter } from 'react-router-dom';
 
-import ServiceApi from '../../ServiceAPI/ServiceAPI';
-
+import ServiceContext from '../../context';
 import styles from './signIn.module.css';
 
-const service = new ServiceApi();
 
 const SignIn = ({ history, auth, setAuth, setErrorState}) => {
+
+  const testService = useContext(ServiceContext);
   const {
     register,
     formState: { errors, isValid },
@@ -27,7 +28,7 @@ const SignIn = ({ history, auth, setAuth, setErrorState}) => {
 
   const onSubmit = (data) => {
     console.log(data);
-    service.login(
+    testService.login(
       data.email,
       data.password,
       (res) => {

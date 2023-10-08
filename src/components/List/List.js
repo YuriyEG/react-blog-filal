@@ -1,13 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Pagination } from 'antd';
 import { withRouter } from 'react-router-dom';
 
-import ServiceAPI from '../../ServiceAPI/ServiceAPI';
+import ServiceContext from '../../context';
 import ArticleItem from '../ArticleItem';
 
 import styles from './list.module.css';
-
-const service = new ServiceAPI();
 
 const List = ({ history }) => {
   const [articles, setArticles] = useState([1, 3, 4]);
@@ -15,6 +13,7 @@ const List = ({ history }) => {
   const [currentPage, setCurrentPage] = useState(1);
   /* eslint-disable-next-line */
   const [error, setError] = useState('');
+  const testService = useContext(ServiceContext);
 
   const dataReceiver = (data) => {
     setArticles(data.articles);
@@ -22,7 +21,7 @@ const List = ({ history }) => {
   };
 
   useEffect(() => {
-    service.getArticles(
+    testService.getArticles(
       (res) => dataReceiver(res),
       (err) => setError(err),
       5,

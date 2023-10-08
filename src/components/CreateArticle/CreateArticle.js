@@ -1,5 +1,6 @@
 /* eslint-disable */
 import React, { useEffect, useState } from 'react';
+import { useContext } from 'react';
 
 import DeleteButton from '../DeleteButton';
 import AddTagButton from '../AddTagButton';
@@ -8,17 +9,17 @@ import SendButton from '../SendButton';
 import { useForm } from 'react-hook-form';
 import { withRouter } from 'react-router-dom';
 import { Link } from 'react-router-dom';
-import ServiseAPI from '../../ServiceAPI/ServiceAPI';
+import ServiceContext from '../../context';
+
 
 import styles from './createArticle.module.css';
 
-
-const service = new ServiseAPI();
 
 const CreateArticle = ({history, errorState, setErrorState }) => {
 
   const [tags, setTags] = useState([]);
   const [curTag, setCurTag] = useState('');
+  const testService = useContext(ServiceContext);
 
   const {
     register,
@@ -44,7 +45,7 @@ const CreateArticle = ({history, errorState, setErrorState }) => {
     
       let dataWithTags = { ...data, tagList: sendedTags };
 
-      service.createArticle(
+      testService.createArticle(
         dataWithTags,
         (res) => {
   

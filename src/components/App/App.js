@@ -1,6 +1,6 @@
 /* eslint-disable */
 
-import React, { useEffect } from 'react';
+import React, { useContext, useEffect } from 'react';
 import { useState } from 'react';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import { Switch } from 'react-router-dom';
@@ -14,13 +14,14 @@ import EditProfile from '../EditProfile';
 import SignUp from '../SignUp';
 import Article from '../Article';
 import Alert from '../Alert';
-
+import ServiceContext from '../../context';
 import styles from './App.module.css';
-import ServiceApi from '../../ServiceAPI/ServiceAPI';
-const service = new ServiceApi();
+
 
 const App = () => {
 
+ let testService = useContext(ServiceContext);
+ 
  const [auth, setAuth ] = useState({ auth: false });
 
  const [curUser, setCurUser] = useState({});
@@ -34,7 +35,7 @@ const App = () => {
     localStorage.setItem('isAuth', JSON.stringify({ auth: false }));
     setAuth({ auth: false });
   }
-  service.getCurrentUser((res) => {
+  testService.getCurrentUser((res) => {
     setCurUser(res);
 
   }, (err) => console.log(err));
@@ -46,10 +47,11 @@ const App = () => {
       <div className={styles.app}>
 
             <Alert errorState={errorState} />
+            
               <Header path="/" exact auth={auth} setAuth={setAuth} setErrorState={setErrorState} curUser={curUser}  />
               <Switch>
                 <Route path="/"  component={List} exact />
-                <Route path="/articles" component={List} exact />
+                <Route path="/articles/" component={List} exact />
                 <Route path="/articles/:id" render={
                   ({ match }) => {
                   const { id } = match.params;
