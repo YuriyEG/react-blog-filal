@@ -54,8 +54,8 @@ const App = () => {
             
               <Header path={RouterPaths.base} exact auth={auth} setAuth={setAuth} setErrorState={setErrorState} curUser={curUser}  />
               <Switch>
-                <Route path={RouterPaths.base}  component={List} exact />
-                <Route path={RouterPaths.articles} component={List} exact />
+                <Route path={RouterPaths.base}  render={ e => { return <List setErrorState={setErrorState}/> }} exact />
+                <Route path={RouterPaths.articles}   render={ e => { return <List setErrorState={setErrorState}/> }} exact />
                 <Route path={RouterPaths.articles + `/:id`} render={
                   ({ match }) => {
                   const { id } = match.params;

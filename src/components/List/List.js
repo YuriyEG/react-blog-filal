@@ -8,7 +8,7 @@ import ApiContext from '../../context';
 
 import styles from './list.module.css';
 
-const List = ({ history }) => {
+const List = ({ history, setErrorState }) => {
   const testService = useContext(ApiContext);
   const [articles, setArticles] = useState([]);
   const [totalPages, setTotalPages] = useState(1);
@@ -22,12 +22,23 @@ const List = ({ history }) => {
   };
 
   useEffect(() => {
-    testService.getArticles(
-      (res) => dataReceiver(res),
-      (err) => setError(err),
-      5,
-      (currentPage - 1) * 5
-    );
+    testService
+      .getArticles(5, (currentPage - 1) * 5)
+      .then((res) => {
+        if (!res.ok) {
+          setErrorState({ status: true, message: `${res.status} Ошибка!` });
+        }
+        return res.json();
+      })
+      .then((res) => {
+        dataReceiver(res);
+      })
+      .catch((err) => {
+        setErrorState({ status: true, message: err.message });
+        setTimeout(() => {
+          setErrorState({ state: false, message: '' });
+        }, 1000);
+      });
   }, [currentPage]);
 
   return (
