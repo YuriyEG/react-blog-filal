@@ -7,7 +7,6 @@ import { Switch } from 'react-router-dom';
 
 import Header from '../Header';
 import CreateArticle from '../CreateArticle';
-import EditArticle from '../EditArticle';
 import List from '../List';
 import SignIn from '../SignIn';
 import EditProfile from '../EditProfile';
