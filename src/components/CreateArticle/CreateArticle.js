@@ -2,21 +2,15 @@
 import React, { useEffect, useState } from 'react';
 import { useContext } from 'react';
 
-import DeleteButton from '../DeleteButton';
-import AddTagButton from '../AddTagButton';
-import SendButton from '../SendButton';
 
 import { useForm } from 'react-hook-form';
 import { withRouter } from 'react-router-dom';
-import { Link } from 'react-router-dom';
 import ServiceContext from '../../context';
 import { CreateArticleSchema } from '../../YUP';
 import { yupResolver } from '@hookform/resolvers/yup';
 
 
 import styles from './createArticle.module.css';
-import { ConsoleSqlOutlined } from '@ant-design/icons';
-
 
 const CreateArticle = ({history, errorState, setErrorState, isNew, slug }) => {
 
@@ -25,9 +19,10 @@ const CreateArticle = ({history, errorState, setErrorState, isNew, slug }) => {
   const testService = useContext(ServiceContext);
   const [article, setArticle] = useState(null);
 
+
   useEffect( () => {
     testService.getArticle(slug, (res) => setArticle(res.article), (err) => console.log(err));
-    console.log('otrabotalo');
+  
 }, []);
 
   const {
@@ -127,14 +122,9 @@ const CreateArticle = ({history, errorState, setErrorState, isNew, slug }) => {
     });
     setTags(receivedTags);
 
-    document.getElementById('title')
-    .value = article.title;
-  document.getElementById('description')
-    .value = article.description;
-  document.getElementById('body')
-    .value = article.body;
 
-   console.log(article.tagList);
+
+   console.log(article);
     }
 
     
@@ -148,7 +138,7 @@ const CreateArticle = ({history, errorState, setErrorState, isNew, slug }) => {
         <div className={styles.createArticle__label}>
           <div className={styles.createArticle__description}>Title</div>
 
-          <input id='title' className={styles.createArticle__input}
+          <input className={styles.createArticle__input}
                       {...register('title')} />
                       <br />
           <span className={styles.createArticle__warning}>{errors?.title && <p>{errors?.title?.message}</p>}</span>
@@ -156,7 +146,7 @@ const CreateArticle = ({history, errorState, setErrorState, isNew, slug }) => {
         <div className={styles.createArticle__label}>
           <div className={styles.createArticle__description}>Short description</div>
 
-          <input id='description' className={styles.createArticle__input} 
+          <input  className={styles.createArticle__input} 
                         {...register('description')}
           />
                   <br />
@@ -166,7 +156,7 @@ const CreateArticle = ({history, errorState, setErrorState, isNew, slug }) => {
         <div className={styles.createArticle__label}>
           <div className={styles.createArticle__description}>Text</div>
 
-          <textarea id='body' className={styles.createArticle__area} width="874px" type="text" 
+          <textarea className={styles.createArticle__area} width="874px" type="text" 
                         {...register('body')}
           />
                  <br />

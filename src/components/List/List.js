@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from 'react';
 import { Pagination } from 'antd';
 import { withRouter } from 'react-router-dom';
 
+import RouterPaths from '../../Paths/Paths';
 import ServiceContext from '../../context';
 import ArticleItem from '../ArticleItem';
 
@@ -34,9 +35,9 @@ const List = ({ history }) => {
       {articles.map((article) => (
         <ArticleItem
           article={article}
-          key={Math.random() * Date.now()}
+          key={articles.indexOf(article)}
           onItemSelected={(slug) => {
-            history.push(`/articles/${slug}`);
+            history.push(`${RouterPaths.articles}/${slug}`);
           }}
         />
       ))}

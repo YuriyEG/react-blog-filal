@@ -328,4 +328,6 @@
     margin-top: 20px;
     color: rgba(0, 0, 0, 0.75);
     font-size: 18px;
+    overflow: hidden;
+    overflow-wrap: break-word;
 }

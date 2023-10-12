@@ -1,11 +1,11 @@
-/* eslint-disable */
 import React, { useState } from 'react';
-import { Button, Checkbox } from 'antd';
+import { Checkbox } from 'antd';
 
-const Check = ({descript}) => {
+const Check = ({ descript }) => {
   const [checked, setChecked] = useState(true);
   const [disabled, setDisabled] = useState(false);
 
+  /* eslint-disable */
   const toggleChecked = () => {
     setChecked(!checked);
   };
@@ -15,16 +15,16 @@ const Check = ({descript}) => {
   };
 
   const onChange = (e) => {
-    console.log('checked = ', e.target.checked);
     setChecked(e.target.checked);
   };
 
-  // const label = `${checked ? 'Checked' : 'Unchecked'}-${disabled ? 'Disabled' : 'Enabled'}`;
+  /* eslint-enable */
+
   const label = descript;
 
   return (
     <p style={{ marginBottom: '20px' }}>
-      <Checkbox checked={checked} disabled={disabled} onChange={onChange} style={{ color: 'rgba(89, 89, 89, 1)'}}>
+      <Checkbox checked={checked} disabled={disabled} onChange={onChange} style={{ color: 'rgba(89, 89, 89, 1)' }}>
         {label}
       </Checkbox>
     </p>

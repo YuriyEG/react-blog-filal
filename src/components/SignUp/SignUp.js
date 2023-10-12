@@ -1,32 +1,28 @@
-/* eslint-disable */
-
-import React, { useEffect, useState, setErrorState, useContext } from 'react';
+import React, { useState, useContext } from 'react';
 import { useForm } from 'react-hook-form';
 import { Link, withRouter } from 'react-router-dom';
-import Check from '../Check';
-import styles from './signUp.module.css';
-import ServiceContext from '../../context';
-import { SignUpSchema } from '../../YUP';
 import { yupResolver } from '@hookform/resolvers/yup';
 
-const SignUp = ({ history, setErrorState }) => {
+import Check from '../Check';
+import ServiceContext from '../../context';
+import { SignUpSchema } from '../../YUP';
+import RouterPaths from '../../Paths/Paths';
 
+import styles from './signUp.module.css';
+
+const SignUp = ({ history, setErrorState }) => {
   const testService = useContext(ServiceContext);
   const {
     register,
-    formState: { errors},
+    formState: { errors },
     handleSubmit,
     reset,
   } = useForm({
-    resolver: yupResolver(SignUpSchema)
+    resolver: yupResolver(SignUpSchema),
   });
 
   const [password, setPassword] = useState('');
   const [password2, setPassword2] = useState('');
-
-  const loadPassword = (e) => {
-    setPassword(e.target.value);
-  };
 
   const onSubmit = (data) => {
     if (password === password2) {
@@ -39,7 +35,7 @@ const SignUp = ({ history, setErrorState }) => {
             setErrorState({ status: false, message: '' });
           }, 1500);
         },
-
+        /* eslint-disable */
         (err) => {
           setErrorState({ status: true, message: 'При регистрации произошла ошибка!' });
           setTimeout(() => {
@@ -48,7 +44,7 @@ const SignUp = ({ history, setErrorState }) => {
         }
       );
       reset();
-      history.push('sign-in/');
+      history.push(RouterPaths.signIn);
     }
   };
 
@@ -60,10 +56,7 @@ const SignUp = ({ history, setErrorState }) => {
         <div className={styles.signUp__label}>
           <span className={styles.signUp__description}>Username</span>
           <br />
-          <input
-            className={styles.signUp__input}
-            {...register('username')}
-          />
+          <input className={styles.signUp__input} {...register('username')} />
           <br />
           <span className={styles.signUp__warning}>{errors?.username && <p>{errors?.username?.message}</p>}</span>
         </div>
@@ -71,10 +64,7 @@ const SignUp = ({ history, setErrorState }) => {
         <div className={styles.signUp__label}>
           <span className={styles.signUp__description}>Email address</span>
           <br />
-          <input
-            className={styles.signUp__input}
-            {...register('email')}
-          />
+          <input className={styles.signUp__input} {...register('email')} />
           <br />
 
           <span className={styles.signUp__warning}>{errors?.email && <p>{errors?.email?.message}</p>}</span>
@@ -110,10 +100,10 @@ const SignUp = ({ history, setErrorState }) => {
           <br />
         </div>
         <Check descript={'I agree to the processing of my personal information'} />
-        <input type="submit" className={styles.signUp__submit}/>
+        <input type="submit" className={styles.signUp__submit} />
         <div className={styles.signUp__question}>
           Already have an account?{' '}
-          <Link to="/sign-in" className={styles.signUp__questionBlue}>
+          <Link to={RouterPaths.signIn} className={styles.signUp__questionBlue}>
             Sign In
           </Link>
         </div>
