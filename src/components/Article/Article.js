@@ -19,12 +19,21 @@ const Article = ({ itemId, history, auth, curUser, setErrorState }) => {
 
   const testService = useContext(ServiceContext);
   useEffect(() => {
-    testService.getArticle(
-      itemId,
-      (res) => setArticle(res.article),
-      /* eslint-disable-next-line */
-      (err) => console.log(err)
-    );
+    testService
+      .getArticle(itemId)
+      .then((res) => {
+        return res.json();
+      })
+      .then((res) => {
+        setArticle(res.article);
+      })
+      .catch((err) => {
+        setErrorState({ status: true, message: `${err.message}Ошибка!` });
+        setTimeout(() => {
+          setErrorState({ status: false, message: '' });
+        }, 1000);
+      });
+
     if (!localStorage.getItem('liked_list')) {
       localStorage.setItem('liked_list', JSON.stringify([]));
     } else {

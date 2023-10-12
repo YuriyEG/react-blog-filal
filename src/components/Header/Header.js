@@ -20,7 +20,6 @@ const Header = ({ auth, setAuth, curUser, setErrorState }) => {
   };
 
   useEffect(() => {
-    console.log('curUser', curUser);
     if (curUser.user) {
       setUserName(curUser.user.username);
       setImageUrl(curUser.user.image);

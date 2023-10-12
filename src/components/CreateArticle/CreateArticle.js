@@ -24,7 +24,15 @@ const CreateArticle = ({history, errorState, setErrorState, isNew, slug }) => {
 
 
   useEffect( () => {
-    testService.getArticle(slug, (res) => setArticle(res.article), (err) => console.log(err));
+    testService.getArticle(slug)
+    .then( res => res.json())
+    .then( res => setArticle(res.article))
+    .catch( err => {
+      setErrorState( { status: true, message: 'Ошибка ! ' + err.message });
+      setTimeout(() => {
+        setErrorState( { status: false, message: '' })
+      }, 1000);
+    })
   
 }, []);
 
@@ -69,32 +77,30 @@ const CreateArticle = ({history, errorState, setErrorState, isNew, slug }) => {
       } else {
         testService.editArticle(
           slug,
-          dataWithTags,
-          
-          (res) => {
-    
+          dataWithTags)
+          .then( res => {
+            return res.json()
+          })
+          .then( res => {
             setErrorState({status: true, message: 'Статья отредактирована!'});
             setTimeout(() => {
               setErrorState({status: false, message: '' })
             }, 1500);
-            
-  
-          } ,
-  
-          (err) => {
+            reset();
+            setTags([]);
+      
+            history.push('/articles');
+          })
+          .catch( err => {
             setErrorState({status: true, message: 'Ошибка при отправке!'});
             setTimeout(() => {
               setErrorState({status: false, message: '' })
             }, 2000);
-          }
-  
-        );
+          })
+
       }
       
-      reset();
-      setTags([]);
 
-      history.push('/articles');
         
   };
 
