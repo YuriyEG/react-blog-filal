@@ -21,34 +21,33 @@ const SignIn = ({ history, setAuth, setErrorState }) => {
   });
 
   const onSubmit = (data) => {
-    testService.login(
-      data.email,
-      data.password,
-      (res) => {
-        if (res.user) {
-          localStorage.setItem('isAuth', JSON.stringify({ auth: true }));
-          setAuth({ auth: true });
-          history.push('/articles');
-          setErrorState({ status: true, message: 'Вход выполнен!' });
-          setTimeout(() => {
-            setErrorState({ status: false, message: '' });
-          }, 2000);
-        } else {
-          setErrorState({ status: true, message: 'Введены неверные данные!' });
-          setTimeout(() => {
-            setErrorState({ status: false, message: '' });
-          }, 2000);
+    testService
+      .login(data.email, data.password)
+      .then((res) => {
+        if (!res.ok) {
+          setErrorState({ status: true, message: `${res.ok}Error` });
         }
-      },
-      /* eslint-disable */ 
-      (err) => {
-        setErrorState({ status: true, message: 'Запрос завершился неудачно' });
+        return res.json();
+      })
+      /* eslint-disable-next-line */
+      .then((res) => {
+        console.log(res);
+        localStorage.setItem('isAuth', JSON.stringify({ auth: true }));
+        setAuth({ auth: true });
+        history.push('/articles');
+        setErrorState({ status: true, message: 'Вход выполнен!' });
         setTimeout(() => {
           setErrorState({ status: false, message: '' });
         }, 2000);
-      }
-    );
-    reset();
+        reset();
+      })
+
+      .catch((err) => {
+        setErrorState({ status: true, message: `Запрос завершился неудачно ${err.message}` });
+        setTimeout(() => {
+          setErrorState({ status: false, message: '' });
+        }, 2000);
+      });
   };
 
   return (

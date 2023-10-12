@@ -39,10 +39,7 @@ const App = () => {
     localStorage.setItem('isAuth', JSON.stringify({ auth: false }));
     setAuth({ auth: false });
   }
-  testService.getCurrentUser((res) => {
-    setCurUser(res);
-
-  }, (err) => console.log(err));
+  testService.getCurrentUser().then( res => res.json()).then( res => setCurUser(res))
  }, [])
   
  
@@ -54,8 +51,8 @@ const App = () => {
             
               <Header path={RouterPaths.base} exact auth={auth} setAuth={setAuth} setErrorState={setErrorState} curUser={curUser}  />
               <Switch>
+              <Route path={RouterPaths.articles}  render={ e => { return <List setErrorState={setErrorState}/> }} exact />
                 <Route path={RouterPaths.base}  render={ e => { return <List setErrorState={setErrorState}/> }} exact />
-                <Route path={RouterPaths.articles}   render={ e => { return <List setErrorState={setErrorState}/> }} exact />
                 <Route path={RouterPaths.articles + `/:id`} render={
                   ({ match }) => {
                   const { id } = match.params;

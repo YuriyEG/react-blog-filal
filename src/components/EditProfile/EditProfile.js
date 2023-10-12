@@ -35,25 +35,33 @@ const EditProfile = ({ curUser, history, setErrorState }) => {
   });
 
   const onSubmit = (data) => {
-    testService.updateCurrentUser(
-      { user: data },
+    testService
+      .updateCurrentUser({ user: data })
+      .then((res) => {
+        if (!res.ok) {
+          setErrorState({ status: true, message: `Ошибка ${res.ok}` });
+          setTimeout(() => {
+            setErrorState({ status: false, message: '' });
+          }, 1500);
+        }
+        return res.json();
+      })
       /* eslint-disable-next-line */
-      (res) => {
+      .then((res) => {
+        console.log(res);
         setErrorState({ status: true, message: 'Данные отредактированы!' });
         setTimeout(() => {
           setErrorState({ status: false, message: '' });
         }, 1500);
         history.push(RouterPaths.articles);
-      },
-      /* eslint-disable-next-line */
-      (err) => {
-        setErrorState({ status: true, message: 'Ошибка при отправке данных!' });
+        reset();
+      })
+      .catch((err) => {
+        setErrorState({ status: true, message: `Ошибка при отправке данных! ${err.message}` });
         setTimeout(() => {
           setErrorState({ status: false, message: '' });
         }, 1500);
-      }
-    );
-    reset();
+      });
   };
 
   return (

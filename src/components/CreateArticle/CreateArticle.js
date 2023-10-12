@@ -46,24 +46,26 @@ const CreateArticle = ({history, errorState, setErrorState, isNew, slug }) => {
     
       let dataWithTags = { ...data, tagList: sendedTags };
       if (isNew) {
-        testService.createArticle(
-        dataWithTags,
-        (res) => {
-  
+
+        testService.createArticle(dataWithTags)
+        .then( res => {
+          return res.json()
+        })
+        .then( res => {
           setErrorState({status: true, message: 'Статья успешно добавлена!'});
           setTimeout(() => {
             setErrorState({status: false, message: '' })
           }, 1500);
-
-        } ,
-
-        (err) => {
+        })
+        .catch( err => {
           setErrorState({status: true, message: 'Ошибка при выполнении запроса!'});
           setTimeout(() => {
             setErrorState({status: false, message: '' })
           }, 2000);
         }
-      );
+          )
+
+
       } else {
         testService.editArticle(
           slug,
@@ -75,6 +77,7 @@ const CreateArticle = ({history, errorState, setErrorState, isNew, slug }) => {
             setTimeout(() => {
               setErrorState({status: false, message: '' })
             }, 1500);
+            
   
           } ,
   

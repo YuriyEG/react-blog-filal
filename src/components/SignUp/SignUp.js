@@ -26,25 +26,32 @@ const SignUp = ({ history, setErrorState }) => {
 
   const onSubmit = (data) => {
     if (password === password2) {
-      testService.createUser(
-        data,
-        (res) => {
-          localStorage.setItem('token', res.user.token);
-          setErrorState({ status: true, message: 'Регистрация прошла успешно!' });
+      testService
+        .createUser(data)
+        .then((res) => {
+          if (!res.ok) {
+            setErrorState({ status: true, message: `${res.ok} Error!` });
+            setTimeout(() => {
+              setErrorState({ status: false, message: '' });
+            }, 1000);
+          }
+          return res.json();
+        })
+        /* eslint-disable-next-line */
+        .then((res) => {
+          setErrorState({ status: true, message: 'Вы успешно зарегистрировались!' });
           setTimeout(() => {
             setErrorState({ status: false, message: '' });
-          }, 1500);
-        },
-        /* eslint-disable */
-        (err) => {
-          setErrorState({ status: true, message: 'При регистрации произошла ошибка!' });
+          }, 1000);
+          reset();
+          history.push(RouterPaths.signIn);
+        })
+        .catch((err) => {
+          setErrorState({ status: true, message: err.message });
           setTimeout(() => {
             setErrorState({ status: false, message: '' });
-          }, 1500);
-        }
-      );
-      reset();
-      history.push(RouterPaths.signIn);
+          }, 1000);
+        });
     }
   };
 
