@@ -2,19 +2,19 @@ import React, { useContext, useEffect, useState } from 'react';
 import { Pagination } from 'antd';
 import { withRouter } from 'react-router-dom';
 
-import RouterPaths from '../../Paths/Paths';
-import ServiceContext from '../../context';
 import ArticleItem from '../ArticleItem';
+import RouterPaths from '../../Paths/Paths';
+import ApiContext from '../../context';
 
 import styles from './list.module.css';
 
 const List = ({ history }) => {
-  const [articles, setArticles] = useState([1, 3, 4]);
+  const testService = useContext(ApiContext);
+  const [articles, setArticles] = useState([]);
   const [totalPages, setTotalPages] = useState(1);
   const [currentPage, setCurrentPage] = useState(1);
   /* eslint-disable-next-line */
   const [error, setError] = useState('');
-  const testService = useContext(ServiceContext);
 
   const dataReceiver = (data) => {
     setArticles(data.articles);
@@ -35,7 +35,7 @@ const List = ({ history }) => {
       {articles.map((article) => (
         <ArticleItem
           article={article}
-          key={articles.indexOf(article)}
+          key={Math.random() * Date.now()}
           onItemSelected={(slug) => {
             history.push(`${RouterPaths.articles}/${slug}`);
           }}
