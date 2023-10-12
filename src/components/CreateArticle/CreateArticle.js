@@ -18,6 +18,9 @@ const CreateArticle = ({history, errorState, setErrorState, isNew, slug }) => {
   const [curTag, setCurTag] = useState('');
   const testService = useContext(ServiceContext);
   const [article, setArticle] = useState(null);
+  const [title, setTitle] = useState('default');
+  const [description, setDescription] = useState('defasfdsd');
+  const [body, setBody] = useState('bodyyyy');
 
 
   useEffect( () => {
@@ -114,13 +117,16 @@ const CreateArticle = ({history, errorState, setErrorState, isNew, slug }) => {
   }, [tags])
 
   useEffect( () => {
-    if (article) {
+    if (article && !isNew) {
           console.log(article);
     let receivedTags = [];
     article.tagList?.forEach( tag => {
       receivedTags.push( { id: Math.random()*Date.now(), value: tag })
     });
     setTags(receivedTags);
+    setTitle(article.title);
+    setDescription(article.description);
+    setBody(article.body);
 
 
 
@@ -139,7 +145,8 @@ const CreateArticle = ({history, errorState, setErrorState, isNew, slug }) => {
           <div className={styles.createArticle__description}>Title</div>
 
           <input className={styles.createArticle__input}
-                      {...register('title')} />
+                      {...register('title')} value={title} onChange={e => setTitle(e.target.value)}/>
+                      
                       <br />
           <span className={styles.createArticle__warning}>{errors?.title && <p>{errors?.title?.message}</p>}</span>
         </div>
@@ -148,6 +155,8 @@ const CreateArticle = ({history, errorState, setErrorState, isNew, slug }) => {
 
           <input  className={styles.createArticle__input} 
                         {...register('description')}
+                        value={description}
+                        onChange={e => setDescription(e.target.value)}
           />
                   <br />
           <span className={styles.createArticle__warning}>{errors?.description && <p>{errors?.description?.message}</p>}</span>
@@ -158,6 +167,8 @@ const CreateArticle = ({history, errorState, setErrorState, isNew, slug }) => {
 
           <textarea className={styles.createArticle__area} width="874px" type="text" 
                         {...register('body')}
+                        value={body}
+                        onChange={e => setBody(e.target.value)}
           />
                  <br />
           <span className={styles.createArticle__warning}>{errors?.body && <p>{errors?.body?.message}</p>}</span>

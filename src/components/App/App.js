@@ -3,7 +3,11 @@
 import React, { useContext, useEffect } from 'react';
 import { useState } from 'react';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { BrowserRouter } from 'react-router-dom/cjs/react-router-dom.min';
 import { Switch } from 'react-router-dom';
+import { Navigate } from "react-router-dom";
+
+
 
 import Header from '../Header';
 import CreateArticle from '../CreateArticle';
@@ -66,14 +70,16 @@ const App = () => {
                     render={ () => {
                     return <EditProfile curUser={curUser} setErrorState={setErrorState} />
                     }} />
-                <Route path={RouterPaths.newArticles} exact 
+                <Route path={RouterPaths.newArticle} exact 
                     render={ () => {
                     return <CreateArticle isNew={true} auth={auth} setErrorState={setErrorState} errorState={errorState} />
                     }} />
-                <Route path={RouterPaths.articles + "/:slug/edit"} render={
+                <Route path={`/articles/:slug/edit`} render={
+       
+                ({match, location, history }) => {
 
-                ({match}) => {
                     const { slug } = match.params;
+                    console.log(match);
               
                     return <CreateArticle slug={slug} isNew={false} setErrorState={setErrorState} errorState={errorState} />
                 }}/>
