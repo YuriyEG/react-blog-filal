@@ -1,5 +1,5 @@
-/* eslint-disable */
-import { Component } from "react";
+import { Component } from 'react';
+
 class ServiceApi extends Component {
   constructor() {
     super();
@@ -9,195 +9,121 @@ class ServiceApi extends Component {
     this.forArticles = 'articles/';
   }
 
-  createUser(obj, onResponse = this.defaultResponce, onError = this.defaultError) {
-    fetch(this.baseUrl + this.forUsers, {
+  createUser(obj) {
+    return fetch(this.baseUrl + this.forUsers, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json;charset=utf-8',
       },
       body: JSON.stringify({ user: obj }),
-    })
-      .then((res) => res.json())
-      .then((res) => onResponse(res))
-      .catch((err) => onError(err));
+    });
   }
 
-  getArticles(onResponse, onError, limit = 5, offset = 0) {
-    fetch(`${this.baseUrl + this.forArticles}?limit=${limit}&&offset=${offset}`, {
+  getArticles(limit = 5, offset = 0) {
+    return fetch(`${this.baseUrl + this.forArticles}?limit=${limit}&&offset=${offset}`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json;charset=utf-8',
       },
-    })
-      .then((res) => res.json())
-      .then((res) => onResponse(res))
-      .then((err) => onError(err));
+    });
   }
 
-  async createArticle(
-    receivedArticle,
-    onResponse = () => console.log('Не передан колбэк для респонса'),
-    onError = () => console.log('не передан колбэк для ошибок')
-  ) {
-    console.log('Передаем ', receivedArticle);
+  async createArticle(receivedArticle) {
     const token = localStorage.getItem('token');
-    fetch(this.baseUrl + this.forArticles, {
+    return fetch(this.baseUrl + this.forArticles, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
         Authorization: `Token ${token}`,
       },
       body: JSON.stringify({ article: receivedArticle }),
-    })
-      .then((res) => res.json())
-      .then((res) => onResponse(res))
-      .catch((err) => onError(err));
+    });
   }
 
-  async getArticle(
-    itemId,
-    onResponse = () => console.log('Не передан колбэк для Респонса'),
-    onError = () => console.log('Не передан колбэк для Ошибки')
-  ) {
-    console.log('Получили: ', itemId);
+  async getArticle(itemId) {
     const token = localStorage.getItem('token');
-    fetch(this.baseUrl + this.forArticles + itemId, {
+    return fetch(this.baseUrl + this.forArticles + itemId, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
         Authorization: `Token ${token}`,
       },
-    })
-      .then((res) => res.json())
-      .then((res) => onResponse(res))
-      .catch((err) => onError(err));
+    });
   }
 
-  async deleteArticle(
-    itemId,
-    onResponse = () => console.log('Не передан колбэк для Респонса'),
-    onError = () => console.log('Не передан колбэк для Ошибки')
-  ) {
-    console.log('Получили: ', itemId);
+  async deleteArticle(itemId) {
     const token = localStorage.getItem('token');
 
-    fetch(this.baseUrl + this.forArticles + itemId, {
+    return fetch(this.baseUrl + this.forArticles + itemId, {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json',
         Authorization: `Token ${token}`,
       },
-    })
-      .then((res) => res.json())
-      .then((res) => onResponse(res))
-      .catch((err) => onError(err));
+    });
   }
 
-  async toFavorites(
-    slug,
-    onResponse = () => console.log('Не передан колбэк для Респонса'),
-    onError = () => console.log('Не передан колбэк для Ошибки')
-  ) {
-    console.log('Получили: ', slug);
+  async toFavorites(slug) {
     const token = localStorage.getItem('token');
 
-    fetch(`${this.baseUrl + this.forArticles + slug}/favorite`, {
+    return fetch(`${this.baseUrl + this.forArticles + slug}/favorite`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
         Authorization: `Token ${token}`,
       },
-    })
-      .then((res) => res.json())
-      .then((res) => onResponse(res))
-      .catch((err) => onError(err));
+    });
   }
 
-  async unFavorites(
-    slug,
-    onResponse = () => console.log('Не передан колбэк для Респонса'),
-    onError = () => console.log('Не передан колбэк для Ошибки')
-  ) {
-    console.log('Получили: ', slug);
+  async unFavorites(slug) {
     const token = localStorage.getItem('token');
-
-    fetch(`${this.baseUrl + this.forArticles + slug}/favorite`, {
+    return fetch(`${this.baseUrl + this.forArticles + slug}/favorite`, {
       method: 'DELETE',
       headers: {
         'Content-Type': 'application/json',
         Authorization: `Token ${token}`,
       },
-    })
-      .then((res) => res.json())
-      .then((res) => onResponse(res))
-      .catch((err) => onError(err));
+    });
   }
 
-  async editArticle(
-    slug,
-    receivedArticle,
-    onResponse = () => console.log('Не передан колбэк для Респонса'),
-    onError = () => console.log('Не передан колбэк для Ошибки')
-  ) {
-    console.log('Получили: ', slug, receivedArticle);
+  async editArticle(slug, receivedArticle) {
     const token = localStorage.getItem('token');
-
-    fetch(this.baseUrl + this.forArticles + slug, {
+    return fetch(this.baseUrl + this.forArticles + slug, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
         Authorization: `Token ${token}`,
       },
       body: JSON.stringify({ article: receivedArticle }),
-    })
-      .then((res) => res.json())
-      .then((res) => onResponse(res))
-      .catch((err) => onError(err));
+    });
   }
 
-  async getCurrentUser(
-    onResponse = () => console.log('Не передан колбэк для Респонса'),
-    onError = () => console.log('Не передан колбэк для Ошибки')
-  ) {
-    console.log('sdfsf');
+  async getCurrentUser() {
     const token = localStorage.getItem('token');
-
-    fetch(this.baseUrl + 'user/', {
+    return fetch(`${this.baseUrl}user/`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
         Authorization: `Token ${token}`,
       },
-    })
-      .then((res) => res.json())
-      .then((res) => onResponse(res))
-      .catch((err) => onError(err));
+    });
   }
 
-  async updateCurrentUser(
-    obj,
-    onResponse = () => console.log('Не передан колбэк для Респонса'),
-    onError = () => console.log('Не передан колбэк для Ошибки')
-  ) {
-    console.log('sdfsf');
+  async updateCurrentUser(obj) {
     const token = localStorage.getItem('token');
 
-    fetch(this.baseUrl + 'user/', {
+    return fetch(`${this.baseUrl}user/`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
         Authorization: `Token ${token}`,
       },
       body: JSON.stringify(obj),
-    })
-      .then((res) => res.json())
-      .then((res) => onResponse(res))
-      .catch((err) => onError(err));
+    });
   }
 
-  async login(email, password, onResponse, onError) {
-    console.table( email, password);
-    fetch( this.baseUrl + 'users/login/', {
+  async login(email, password) {
+    return fetch(`${this.baseUrl}users/login/`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -208,10 +134,7 @@ class ServiceApi extends Component {
           password,
         },
       }),
-    })
-    .then((res) => res.json())
-    .then((res) => onResponse(res))
-    .catch((err) => onError(err));
+    });
   }
 }
 
