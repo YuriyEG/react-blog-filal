@@ -18,9 +18,9 @@ const CreateArticle = ({history, errorState, setErrorState, isNew, slug }) => {
   const [curTag, setCurTag] = useState('');
   const testService = useContext(ServiceContext);
   const [article, setArticle] = useState(null);
-  const [title, setTitle] = useState('default');
-  const [description, setDescription] = useState('defasfdsd');
-  const [body, setBody] = useState('bodyyyy');
+  const [title, setTitle] = useState('');
+  const [description, setDescription] = useState('');
+  const [body, setBody] = useState('');
 
 
   useEffect( () => {
