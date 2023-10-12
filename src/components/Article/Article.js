@@ -10,7 +10,7 @@ import Markdown from 'react-markdown';
 import styles from './article.module.css';
 import { withRouter } from 'react-router-dom';
 import ServiceContext from '../../context';
-import Alert from '../Alert';
+
 
 
 const Article = ({itemId, history, auth, curUser, setErrorState }) => {

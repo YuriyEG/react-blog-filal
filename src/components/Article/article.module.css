@@ -1,11 +1,11 @@
 @font-face {
     font-family: "Regular";
-    src: url('Inter-Regular.ttf');
+    src: url('../../assets/Inter-Regular.ttf');
 }
 
 @font-face {
     font-family: "Medium";
-    src: url('Inter-Medium.ttf');
+    src: url('../../assets/Inter-Medium.ttf');
 }
 
 .article {
@@ -65,7 +65,7 @@
     display: inline-block;
     margin-left: 14px;
     align-self: center;
-    background-image: url('./Vector.svg');
+    background-image: url('../../assets/Vector.svg');
     background-repeat: no-repeat;
 }
 .article__liked {
@@ -75,7 +75,7 @@
     display: inline-block;
     margin-left: 14px;
     align-self: center;
-    background-image: url('./Liked.svg');
+    background-image: url('../../assets/Liked.svg');
     background-repeat: no-repeat;
 }
 
@@ -224,7 +224,7 @@
 }
 
 .article__circle {
-    background-image: url('./circle.svg');
+    background-image: url('../../assets/circle.svg');
     position: absolute;
     z-index: 12;
   

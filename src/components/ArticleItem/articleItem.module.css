@@ -1,6 +1,6 @@
 @font-face {
     font-family: "Regular";
-    src: url('Inter-Regular.ttf');
+    src: url('../../assets/Inter-Regular.ttf');
 }
 
 .articleItem {
@@ -51,7 +51,7 @@
     display: inline-block;
     margin-left: 14px;
     align-self: center;
-    background-image: url('./Vector.svg');
+    background-image: url('../../assets/Vector.svg');
     background-size: 100%;
     background-repeat: no-repeat;
 }
@@ -63,7 +63,7 @@
     display: inline-block;
     margin-left: 14px;
     align-self: center;
-    background-image: url('./Liked.svg');
+    background-image: url('../../assets/Liked.svg');
     background-size: 100%;
     background-repeat: no-repeat;
     ;

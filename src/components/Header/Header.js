@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import './default.jpg';
+import '../../assets/default.jpg';
 import { Link, withRouter } from 'react-router-dom';
 
 import styles from './header.module.css';

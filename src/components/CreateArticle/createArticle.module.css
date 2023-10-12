@@ -1,11 +1,11 @@
 @font-face {
     font-family: "Medium";
-    src: url('Inter-Regular.ttf');
+    src: url('../../assets/Inter-Medium.ttf');
 }
 
 @font-face {
     font-family: "Bold";
-    src: url('Inter-Bold.ttf');
+    src: url('../../assets/Inter-Bold.ttf');
 }
 
 
