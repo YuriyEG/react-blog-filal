@@ -68,13 +68,13 @@ const App = () => {
                     }} />
                 <Route path="/new-article" exact 
                     render={ () => {
-                    return <CreateArticle auth={auth} setErrorState={setErrorState} errorState={errorState} />
+                    return <CreateArticle isNew={true} auth={auth} setErrorState={setErrorState} errorState={errorState} />
                     }} />
                 <Route path="/articles/:slug/edit" render={
 
                 ({match}) => {
                     const { slug } = match.params;
-                    return <EditArticle slug={slug} setErrorState={setErrorState} errorState={errorState} />
+                    return <CreateArticle slug={slug} isNew={false} setErrorState={setErrorState} errorState={errorState} />
                 }}/>
                 <Route render={ () => <h1 style={{ marginTop: '50px', marginLeft: '40%'}}>Page not found!</h1>}/>
               </Switch>

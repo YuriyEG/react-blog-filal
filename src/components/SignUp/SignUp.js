@@ -6,23 +6,19 @@ import { Link, withRouter } from 'react-router-dom';
 import Check from '../Check';
 import styles from './signUp.module.css';
 import ServiceContext from '../../context';
+import { SignUpSchema } from '../../YUP';
+import { yupResolver } from '@hookform/resolvers/yup';
 
 const SignUp = ({ history, setErrorState }) => {
 
   const testService = useContext(ServiceContext);
   const {
     register,
-    formState: { errors, isValid },
+    formState: { errors},
     handleSubmit,
     reset,
   } = useForm({
-    mode: 'onBlur',
-    defaultValues: {
-      email: '',
-      username: '',
-      password: '',
-      password2: '',
-    },
+    resolver: yupResolver(SignUpSchema)
   });
 
   const [password, setPassword] = useState('');
@@ -66,14 +62,7 @@ const SignUp = ({ history, setErrorState }) => {
           <br />
           <input
             className={styles.signUp__input}
-            {...register('username', {
-              required: 'Поле обязательно к заполнению',
-              minLength: { value: 3, message: 'Минимум 3 символа' },
-              maxLength: {
-                value: 20,
-                message: 'Максимум 20 символов',
-              },
-            })}
+            {...register('username')}
           />
           <br />
           <span className={styles.signUp__warning}>{errors?.username && <p>{errors?.username?.message}</p>}</span>
@@ -84,19 +73,7 @@ const SignUp = ({ history, setErrorState }) => {
           <br />
           <input
             className={styles.signUp__input}
-            {...register('email', {
-              required: 'Поле обязательно к заполнению',
-              pattern: {
-                value:
-                  /^((([0-9A-Za-z]{1}[-0-9A-z\.]{1,}[0-9A-Za-z]{1})|([0-9А-Яа-я]{1}[-0-9А-я\.]{1,}[0-9А-Яа-я]{1}))@([-A-Za-z]{1,}\.){1,2}[-A-Za-z]{2,})$/,
-                message: 'Please enter valid email!',
-              },
-              minLength: { value: 4, message: 'Минимум 4 символа' },
-              maxLength: {
-                value: 100,
-                message: 'Максимум 100 символов',
-              },
-            })}
+            {...register('email')}
           />
           <br />
 
@@ -108,14 +85,7 @@ const SignUp = ({ history, setErrorState }) => {
           <br />
           <input
             className={styles.signUp__input}
-            {...register('password', {
-              required: 'Поле обязательно к заполнению',
-              minLength: { value: 6, message: 'Минимум 6 символов' },
-              maxLength: {
-                value: 40,
-                message: 'Максимум 40 символов',
-              },
-            })}
+            {...register('password')}
             onChange={(e) => {
               setPassword(e.target.value);
             }}
@@ -130,18 +100,7 @@ const SignUp = ({ history, setErrorState }) => {
 
           <input
             className={styles.signUp__input}
-            {...register('password2', {
-              required: 'Поле обязательно к заполнению',
-              minLength: { value: 6, message: 'Минимум 6 символов' },
-              maxLength: {
-                value: 40,
-                message: 'Максимум 40 символов',
-              },
-              value: {
-                value: '1111',
-                message: 'error',
-              },
-            })}
+            {...register('password2')}
             onChange={(e) => setPassword2(e.target.value)}
           />
 
@@ -151,7 +110,7 @@ const SignUp = ({ history, setErrorState }) => {
           <br />
         </div>
         <Check descript={'I agree to the processing of my personal information'} />
-        <input type="submit" className={styles.signUp__submit} disabled={!isValid} />
+        <input type="submit" className={styles.signUp__submit}/>
         <div className={styles.signUp__question}>
           Already have an account?{' '}
           <Link to="/sign-in" className={styles.signUp__questionBlue}>

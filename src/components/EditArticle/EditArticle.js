@@ -12,7 +12,7 @@ import { withRouter } from 'react-router-dom';
 import styles from './editArticle.module.css';
 
 
-const EditArticle = ({slug, history, setErrorState }) => {
+const EditArticle = ({slug, history, setErrorState, mode }) => {
 
 
 

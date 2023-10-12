@@ -7,6 +7,8 @@ import { useForm } from 'react-hook-form';
 import { withRouter } from 'react-router-dom';
 
 import styles from './editProfile.module.css';
+import { EditProfileSchema } from '../../YUP';
+import { yupResolver } from '@hookform/resolvers/yup';
 
 import ServiceContext from '../../context';
 
@@ -24,17 +26,11 @@ const EditProfile = ({ curUser, history, setErrorState }) => {
 
   const {
     register,
-    formState: { errors, isValid },
+    formState: { errors },
     handleSubmit,
     reset,
   } = useForm({
-    mode: 'onBlur',
-    defaultValues: {
-      email: '',
-      username: '',
-      password: '',
-      image: '',
-    },
+    resolver: yupResolver(EditProfileSchema)
   });
 
   const onSubmit = (data) => {
@@ -69,8 +65,7 @@ const EditProfile = ({ curUser, history, setErrorState }) => {
         <div className={styles.editProfile__label}>
           <span className={styles.editProfile__email}>Username</span>
           <br />
-          <input id="username" className={styles.editProfile__input} {...register('username',
-          {required: 'Поле обязательно к заполнению'})} />
+          <input id="username" className={styles.editProfile__input} {...register('username')} />
           <br />
           <span className={styles.editProfile__warning}>{errors?.username && <p>{errors?.username?.message}</p>}</span>
         </div>
@@ -81,19 +76,7 @@ const EditProfile = ({ curUser, history, setErrorState }) => {
           <input
             id="email"
             className={styles.editProfile__input}
-            {...register('email', {
-              required: 'Поле обязательно к заполнению',
-              pattern: {
-                value:
-                  /^((([0-9A-Za-z]{1}[-0-9A-z\.]{1,}[0-9A-Za-z]{1})|([0-9А-Яа-я]{1}[-0-9А-я\.]{1,}[0-9А-Яа-я]{1}))@([-A-Za-z]{1,}\.){1,2}[-A-Za-z]{2,})$/,
-                message: 'Please enter valid email!',
-              },
-              minLength: { value: 4, message: 'Минимум 4 символа' },
-              maxLength: {
-                value: 100,
-                message: 'Максимум 100 символов',
-              },
-            })}
+            {...register('email')}
           />
           <br />
           
@@ -105,14 +88,7 @@ const EditProfile = ({ curUser, history, setErrorState }) => {
           <br />
           <input
             className={styles.editProfile__input}
-            {...register('password', {
-             
-              minLength: { value: 6, message: 'Минимум 6 символов' },
-              maxLength: {
-                value: 40,
-                message: 'Максимум 40 символов',
-              },
-            })}
+            {...register('password')}
           />
           <br />
 
@@ -122,8 +98,7 @@ const EditProfile = ({ curUser, history, setErrorState }) => {
         <div className={styles.editProfile__label}>
           <span className={styles.editProfile__email}>Avatar img (url)</span>
           <br />
-          <input id="image" className={styles.editProfile__input} {...register('image',
-          { required: 'Поле обязательно к заполнению'})} />
+          <input id="image" className={styles.editProfile__input} {...register('image')} />
           <br />
           <span className={styles.editProfile__warning}>{errors?.image && <p>{errors?.image?.message}</p>}</span>
         </div>
@@ -133,7 +108,7 @@ const EditProfile = ({ curUser, history, setErrorState }) => {
           className={styles.editProfile__submit}
           name="submit_btn"
           value="Login"
-          disabled={!isValid}
+
         />
       </form>
     </div>

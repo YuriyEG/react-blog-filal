@@ -6,8 +6,11 @@ import { Link } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { withRouter } from 'react-router-dom';
 
+
 import ServiceContext from '../../context';
 import styles from './signIn.module.css';
+import { SignInSchema } from '../../YUP';
+import { yupResolver } from '@hookform/resolvers/yup';
 
 
 const SignIn = ({ history, auth, setAuth, setErrorState}) => {
@@ -15,15 +18,11 @@ const SignIn = ({ history, auth, setAuth, setErrorState}) => {
   const testService = useContext(ServiceContext);
   const {
     register,
-    formState: { errors, isValid },
+    formState: { errors },
     handleSubmit,
     reset,
   } = useForm({
-    mode: 'onBlur',
-    defaultValues: {
-      email: '',
-      password: '',
-    },
+    resolver: yupResolver(SignInSchema)
   });
 
   const onSubmit = (data) => {
@@ -75,19 +74,7 @@ const SignIn = ({ history, auth, setAuth, setErrorState}) => {
           <br />
           <input
             className={styles.signIn__input}
-            {...register('email', {
-              required: 'Поле обязательно к заполнению',
-              pattern: {
-                value:
-                  /^((([0-9A-Za-z]{1}[-0-9A-z\.]{1,}[0-9A-Za-z]{1})|([0-9А-Яа-я]{1}[-0-9А-я\.]{1,}[0-9А-Яа-я]{1}))@([-A-Za-z]{1,}\.){1,2}[-A-Za-z]{2,})$/,
-                message: 'Please enter valid email!',
-              },
-              minLength: { value: 4, message: 'Минимум 4 символа' },
-              maxLength: {
-                value: 100,
-                message: 'Максимум 100 символов',
-              },
-            })}
+            {...register('email')}
           />
           <br />
           <span className={styles.signIn__warning}>{errors?.email && <p>{errors?.email?.message}</p>}</span>
@@ -98,14 +85,7 @@ const SignIn = ({ history, auth, setAuth, setErrorState}) => {
           <br />
           <input
             className={styles.signIn__input}
-            {...register('password', {
-              required: 'Поле обязательно к заполнению',
-              minLength: { value: 6, message: 'Минимум 6 символов' },
-              maxLength: {
-                value: 40,
-                message: 'Максимум 40 символов',
-              },
-            })}
+            {...register('password')}
           />
           <br />
           <span className={styles.signIn__warning}>{errors?.password && <p>{errors?.password?.message}</p>}</span>
