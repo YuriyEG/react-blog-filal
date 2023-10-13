@@ -110,6 +110,7 @@ const Article = ({ itemId, history, auth, curUser, setErrorState }) => {
         testService
           .toFavorites(itemId)
           .then((res) => res.json())
+          /* eslint-disable-next-line */
           .then((res) => {
             setLikedFlag(true);
             setLikeCount(() => likeCount + 1);
@@ -130,7 +131,8 @@ const Article = ({ itemId, history, auth, curUser, setErrorState }) => {
       } else {
         testService
           .unFavorites(itemId)
-          .then((res) => res.json())
+          /* eslint-disable */ 
+          .then((res) => res.json(res))
           .then((res) => {
             setLikedFlag(false);
             setLikeCount(() => likeCount - 1);
