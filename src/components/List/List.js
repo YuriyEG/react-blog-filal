@@ -1,19 +1,20 @@
 /* eslint-disable */
 
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Pagination } from 'antd';
 import ServiceAPI from '../../ServiceAPI/ServiceAPI';
 import { withRouter } from 'react-router-dom';
-import RouterPaths from '../../Paths/Paths';
 
 
 
 import ArticleItem from '../ArticleItem';
 
 import styles from './list.module.css';
-const service = new ServiceAPI();
+import ServiceContext from '../../context';
+
 
 const List = ({history}) => {
+  const testService = useContext(ServiceContext);
   const [articles, setArticles] = useState([]);
   const [totalPages, setTotalPages] = useState(1);
   const [currentPage, setCurrentPage] = useState(1);
@@ -26,15 +27,17 @@ const List = ({history}) => {
 
 
   useEffect(() => {
-    service.getArticles((res) => dataReceiver(res), (err) => console.log(err), 5, (currentPage-1)*5);
+    testService.getArticles((res) => dataReceiver(res), (err) => console.log(err), 5, (currentPage-1)*5);
   }, [currentPage]);
   
+  
+
   return (
     <div className={styles.list}>
       {articles.map((article) => (
         <ArticleItem article={article} key={Math.random()*Date.now() }
           onItemSelected={ (slug) => {
-            history.push(`${RouterPaths.articles}/${slug}`);
+            history.push(`/articles/${slug}`);
           }}
         />
       ))}
