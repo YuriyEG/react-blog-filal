@@ -39,12 +39,14 @@ const SignUp = ({ history, setErrorState }) => {
         })
         /* eslint-disable-next-line */
         .then((res) => {
-          setErrorState({ status: true, message: 'Вы успешно зарегистрировались!' });
-          setTimeout(() => {
-            setErrorState({ status: false, message: '' });
-          }, 1000);
-          reset();
-          history.push(RouterPaths.signIn);
+          if (res.user.token) {
+            setErrorState({ status: true, message: 'Вы успешно зарегистрировались!' });
+            setTimeout(() => {
+              setErrorState({ status: false, message: '' });
+            }, 1000);
+            reset();
+            history.push(RouterPaths.signIn);
+          }
         })
         .catch((err) => {
           setErrorState({ status: true, message: err.message });

@@ -81,8 +81,6 @@ const App = () => {
                 ({match, location, history }) => {
 
                     const { slug } = match.params;
-                    console.log(match);
-              
                     return <CreateArticle slug={slug} isNew={false} setErrorState={setErrorState} errorState={errorState} />
                 }}/>
                 <Route render={ () => <h1 style={{ marginTop: '50px', marginLeft: '40%'}}>Page not found!</h1>}/>

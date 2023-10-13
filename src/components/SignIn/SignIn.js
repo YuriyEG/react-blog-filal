@@ -25,20 +25,26 @@ const SignIn = ({ history, setAuth, setErrorState }) => {
       .login(data.email, data.password)
       .then((res) => {
         if (!res.ok) {
-          setErrorState({ status: true, message: `${res.ok}Error` });
+          setErrorState({ status: true, message: `${res.status} Error` });
+          setTimeout(() => {
+            setErrorState({ status: false, message: '' });
+          }, 1000);
         }
         return res.json();
       })
       /* eslint-disable-next-line */
       .then((res) => {
-        localStorage.setItem('isAuth', JSON.stringify({ auth: true }));
-        setAuth({ auth: true });
-        history.push('/articles');
-        setErrorState({ status: true, message: 'Вход выполнен!' });
-        setTimeout(() => {
-          setErrorState({ status: false, message: '' });
-        }, 2000);
-        reset();
+        if (res.user) {
+          console.log(res, 'res');
+          localStorage.setItem('isAuth', JSON.stringify({ auth: true }));
+          setAuth({ auth: true });
+          history.push('/articles');
+          setErrorState({ status: true, message: 'Вход выполнен!' });
+          setTimeout(() => {
+            setErrorState({ status: false, message: '' });
+          }, 2000);
+          reset();
+        }
       })
 
       .catch((err) => {

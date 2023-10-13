@@ -25,7 +25,8 @@ const CreateArticle = ({history, errorState, setErrorState, isNew, slug }) => {
 
 
   useEffect( () => {
-    testService.getArticle(slug)
+    if (!isNew) {
+          testService.getArticle(slug)
     .then( res => res.json())
     .then( res => setArticle(res.article))
     .catch( err => {
@@ -34,6 +35,8 @@ const CreateArticle = ({history, errorState, setErrorState, isNew, slug }) => {
         setErrorState( { status: false, message: '' })
       }, 1000);
     })
+    }
+
   
 }, []);
 
