@@ -31,6 +31,13 @@ const App = () => {
  const [curUser, setCurUser] = useState({});
  const [errorState, setErrorState] = useState({status: false, message: ''})
 
+ const showMessage = (message) => {
+    setErrorState( { status: true, message: message });
+    setTimeout(() => {
+      setErrorState( { status: false, message: '' })
+    }, 2000);
+ }
+
  useEffect( () => {
 
   if (localStorage.getItem('isAuth')) {
@@ -56,8 +63,8 @@ const App = () => {
             
               <Header path={RouterPaths.base} exact auth={auth} setAuth={setAuth} setErrorState={setErrorState} curUser={curUser}  />
               <Switch>
-              <Route path={RouterPaths.articles}  render={ e => { return <List setErrorState={setErrorState}/> }} exact />
-                <Route path={RouterPaths.base}  render={ e => { return <List setErrorState={setErrorState}/> }} exact />
+              <Route path={RouterPaths.articles}  render={ e => { return <List showMessage={showMessage} /> }} exact />
+                <Route path={RouterPaths.base}  render={ e => { return <List showMessage={showMessage} /> }} exact />
                 <Route path={RouterPaths.articles + `/:id`} render={
                   ({ match }) => {
                   const { id } = match.params;

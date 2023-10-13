@@ -4,6 +4,8 @@ import React, { useEffect, useState } from 'react';
 import { Pagination } from 'antd';
 import ServiceAPI from '../../ServiceAPI/ServiceAPI';
 import { withRouter } from 'react-router-dom';
+import RouterPaths from '../../Paths/Paths';
+
 
 
 import ArticleItem from '../ArticleItem';
@@ -32,7 +34,7 @@ const List = ({history}) => {
       {articles.map((article) => (
         <ArticleItem article={article} key={Math.random()*Date.now() }
           onItemSelected={ (slug) => {
-            history.push(`/articles/${slug}`);
+            history.push(`${RouterPaths.articles}/${slug}`);
           }}
         />
       ))}
