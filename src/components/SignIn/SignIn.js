@@ -9,7 +9,7 @@ import { SignInSchema } from '../../YUP';
 
 import styles from './signIn.module.css';
 
-const SignIn = ({ history, setAuth, setErrorState }) => {
+const SignIn = ({ history, setAuth, showMessage }) => {
   const testService = useContext(ServiceContext);
   const {
     register,
@@ -25,33 +25,23 @@ const SignIn = ({ history, setAuth, setErrorState }) => {
       .login(data.email, data.password)
       .then((res) => {
         if (!res.ok) {
-          setErrorState({ status: true, message: `${res.status} Error` });
-          setTimeout(() => {
-            setErrorState({ status: false, message: '' });
-          }, 1000);
+          showMessage(`Ошибка! ${res.ok}`);
         }
         return res.json();
       })
       /* eslint-disable-next-line */
       .then((res) => {
         if (res.user) {
-          console.log(res, 'res');
           localStorage.setItem('isAuth', JSON.stringify({ auth: true }));
           setAuth({ auth: true });
           history.push('/articles');
-          setErrorState({ status: true, message: 'Вход выполнен!' });
-          setTimeout(() => {
-            setErrorState({ status: false, message: '' });
-          }, 2000);
+          showMessage('Вход выполнен!');
           reset();
         }
       })
 
       .catch((err) => {
-        setErrorState({ status: true, message: `Запрос завершился неудачно ${err.message}` });
-        setTimeout(() => {
-          setErrorState({ status: false, message: '' });
-        }, 2000);
+        showMessage(`Запрос завершился неудачно! ${err.message}`);
       });
   };
 

@@ -10,7 +10,7 @@ import RouterPaths from '../../Paths/Paths';
 
 import styles from './signUp.module.css';
 
-const SignUp = ({ history, setErrorState }) => {
+const SignUp = ({ history, showMessage }) => {
   const testService = useContext(ServiceContext);
   const {
     register,
@@ -30,30 +30,21 @@ const SignUp = ({ history, setErrorState }) => {
         .createUser(data)
         .then((res) => {
           if (!res.ok) {
-            setErrorState({ status: true, message: `${res.ok} Error!` });
-            setTimeout(() => {
-              setErrorState({ status: false, message: '' });
-            }, 1000);
+            showMessage(`${res.ok} Error!`);
           }
           return res.json();
         })
         /* eslint-disable-next-line */
         .then((res) => {
           if (res.user.token) {
-            setErrorState({ status: true, message: 'Вы успешно зарегистрировались!' });
-            setTimeout(() => {
-              setErrorState({ status: false, message: '' });
-            }, 1000);
+            showMessage('Вы успешно зарегистрировались!');
             reset();
             localStorage.setItem('token', res.user.token);
             history.push(RouterPaths.signIn);
           }
         })
         .catch((err) => {
-          setErrorState({ status: true, message: err.message });
-          setTimeout(() => {
-            setErrorState({ status: false, message: '' });
-          }, 1000);
+          showMessage(`Ошибка! ${err.message}`);
         });
     }
   };

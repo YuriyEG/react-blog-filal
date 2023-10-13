@@ -13,7 +13,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import styles from './createArticle.module.css';
 import RouterPaths from '../../Paths/Paths';
 
-const CreateArticle = ({history, errorState, setErrorState, isNew, slug }) => {
+const CreateArticle = ({history, showMessage, isNew, slug }) => {
 
   const [tags, setTags] = useState([]);
   const [curTag, setCurTag] = useState('');
@@ -30,10 +30,7 @@ const CreateArticle = ({history, errorState, setErrorState, isNew, slug }) => {
     .then( res => res.json())
     .then( res => setArticle(res.article))
     .catch( err => {
-      setErrorState( { status: true, message: 'Ошибка ! ' + err.message });
-      setTimeout(() => {
-        setErrorState( { status: false, message: '' })
-      }, 1000);
+      showMessage('Ошибка ! ' + err.message);
     })
     }
 
@@ -64,17 +61,11 @@ const CreateArticle = ({history, errorState, setErrorState, isNew, slug }) => {
           return res.json()
         })
         .then( res => {
-          setErrorState({status: true, message: 'Статья успешно добавлена!'});
-          setTimeout(() => {
-            setErrorState({status: false, message: '' })
-          }, 1500);
+          showMessage('Статья успешно добавлена!')
           history.push(RouterPaths.articles);
         })
         .catch( err => {
-          setErrorState({status: true, message: 'Ошибка при выполнении запроса!'});
-          setTimeout(() => {
-            setErrorState({status: false, message: '' })
-          }, 2000);
+          showMessage('Ошибка при выполнении запроса!')
         }
           )
 
@@ -87,20 +78,14 @@ const CreateArticle = ({history, errorState, setErrorState, isNew, slug }) => {
             return res.json()
           })
           .then( res => {
-            setErrorState({status: true, message: 'Статья отредактирована!'});
-            setTimeout(() => {
-              setErrorState({status: false, message: '' })
-            }, 1500);
+            showMessage('Статья отредактирована!')
             reset();
             setTags([]);
       
             history.push('/articles');
           })
           .catch( err => {
-            setErrorState({status: true, message: 'Ошибка при отправке!'});
-            setTimeout(() => {
-              setErrorState({status: false, message: '' })
-            }, 2000);
+            showMessage(`Ошибка при отправке! ${err.message}`)
           })
 
       }

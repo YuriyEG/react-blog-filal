@@ -8,7 +8,7 @@ import RouterPaths from '../../Paths/Paths';
 
 import styles from './article.module.css';
 
-const Article = ({ itemId, history, auth, curUser, setErrorState }) => {
+const Article = ({ itemId, history, auth, curUser, showMessage }) => {
   const [article, setArticle] = useState({});
   const [currentUser, setCurUser] = useState('');
   const [deleteOk, setDeleteOk] = useState(false);
@@ -28,10 +28,7 @@ const Article = ({ itemId, history, auth, curUser, setErrorState }) => {
         setArticle(res.article);
       })
       .catch((err) => {
-        setErrorState({ status: true, message: `${err.message}Ошибка!` });
-        setTimeout(() => {
-          setErrorState({ status: false, message: '' });
-        }, 1000);
+        showMessage(err.message);
       });
 
     if (!localStorage.getItem('liked_list')) {
@@ -88,13 +85,10 @@ const Article = ({ itemId, history, auth, curUser, setErrorState }) => {
       })
   
       .catch((err) => {
-        setErrorState({ status: true, message: 'Статья удалена!' });
-        setTimeout(() => {
-          setErrorState({ status: false, message: '' });
-        }, 1500);
+        showMessage('Статья удалена!');
         setTimeout(() => {
           history.push(RouterPaths.articles);
-        }, 400);
+        }, 1000);
       });
           /* eslint-enable */
     setDeleteOk(false);
@@ -117,16 +111,10 @@ const Article = ({ itemId, history, auth, curUser, setErrorState }) => {
             const curList = JSON.parse(localStorage.getItem('liked_list'));
             curList.push(itemId);
             localStorage.setItem('liked_list', JSON.stringify(curList));
-            setErrorState({ status: true, message: 'Добавлено в избранное!' });
-            setTimeout(() => {
-              setErrorState({ status: false, message: '' });
-            }, 1500);
+            showMessage('Добавлено в избранное!');
           })
           .catch((err) => {
-            setErrorState({ status: true, message: err.message });
-            setTimeout(() => {
-              setErrorState({ status: false, message: '' });
-            }, 1000);
+            showMessage(`Ошибка запроса! ${err.message}`);
           });
       } else {
         testService
@@ -139,23 +127,14 @@ const Article = ({ itemId, history, auth, curUser, setErrorState }) => {
             const curList = JSON.parse(localStorage.getItem('liked_list'));
             const newList = [...curList].filter((node) => node !== itemId);
             localStorage.setItem('liked_list', JSON.stringify(newList));
-            setErrorState({ status: true, message: 'Удалено из избранного!' });
-            setTimeout(() => {
-              setErrorState({ status: false, message: '' });
-            }, 1500);
+            showMessage('Удалено из избранного!');
           })
           .catch((err) => {
-            setErrorState({ status: true, message: `Ошибка при попытке подписаться!${err.message}` });
-            setTimeout(() => {
-              setErrorState({ status: false, message: '' });
-            }, 1000);
+            showMessage('Ошибка при попытке подписаться!');
           });
       }
     } else {
-      setErrorState({ status: true, message: 'Вам необходимо авторизоваться!' });
-      setTimeout(() => {
-        setErrorState({ status: false, message: '' });
-      }, 1500);
+      showMessage('Вам необходимо авторизоваться!');
       history.push(RouterPaths.signIn);
     }
   };

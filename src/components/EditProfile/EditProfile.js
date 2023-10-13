@@ -9,7 +9,7 @@ import RouterPaths from '../../Paths/Paths';
 
 import styles from './editProfile.module.css';
 
-const EditProfile = ({ curUser, history, setErrorState }) => {
+const EditProfile = ({ curUser, history, showMessage }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [username, setUsername] = useState('');
@@ -39,27 +39,18 @@ const EditProfile = ({ curUser, history, setErrorState }) => {
       .updateCurrentUser({ user: data })
       .then((res) => {
         if (!res.ok) {
-          setErrorState({ status: true, message: `Ошибка ${res.ok}` });
-          setTimeout(() => {
-            setErrorState({ status: false, message: '' });
-          }, 1500);
+          showMessage(`Ошибка ${res.ok}`);
         }
         return res.json();
       })
       /* eslint-disable-next-line */
       .then((res) => {
-        setErrorState({ status: true, message: 'Данные отредактированы!' });
-        setTimeout(() => {
-          setErrorState({ status: false, message: '' });
-        }, 1500);
+        showMessage('Данные успешно отредактированы!');
         history.push(RouterPaths.articles);
         reset();
       })
       .catch((err) => {
-        setErrorState({ status: true, message: `Ошибка при отправке данных! ${err.message}` });
-        setTimeout(() => {
-          setErrorState({ status: false, message: '' });
-        }, 1500);
+        showMessage(`Ошибка при отправке данных! ${err.message}`);
       });
   };
 

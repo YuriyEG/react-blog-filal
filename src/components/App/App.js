@@ -47,11 +47,9 @@ const App = () => {
     setAuth({ auth: false });
   }
   testService.getCurrentUser().then( res => res.json()).then( res => setCurUser(res)).catch(err => {
-    setErrorState( { status: true, message: 'Ошибка! ' + err.message });
-    setTimeout(() => {
-      setErrorState( { status: false, message: '' })
-    }, 1000);
-  })
+    showMessage('Ошибка! ' + err.message);
+
+      })
  }, [])
   
  
@@ -61,34 +59,34 @@ const App = () => {
 
             <Alert errorState={errorState} />
             
-              <Header path={RouterPaths.base} exact auth={auth} setAuth={setAuth} setErrorState={setErrorState} curUser={curUser}  />
+              <Header path={RouterPaths.base} exact auth={auth} setAuth={setAuth} showMessage={showMessage} curUser={curUser}  />
               <Switch>
               <Route path={RouterPaths.articles}  render={ e => { return <List showMessage={showMessage} /> }} exact />
                 <Route path={RouterPaths.base}  render={ e => { return <List showMessage={showMessage} /> }} exact />
                 <Route path={RouterPaths.articles + `/:id`} render={
                   ({ match }) => {
                   const { id } = match.params;
-                  return <Article itemId={id} auth={auth} curUser={curUser} setErrorState={setErrorState} />
+                  return <Article itemId={id} auth={auth} curUser={curUser} showMessage={showMessage} />
                   }} exact />
-                <Route path={RouterPaths.signUp} render={ () => <SignUp setErrorState={setErrorState} />} exact/>
+                <Route path={RouterPaths.signUp} render={ () => <SignUp showMessage={showMessage} />} exact/>
         
                 <Route path={RouterPaths.signIn} render={ () => {
-                  return <SignIn auth={auth} setAuth={setAuth} setErrorState={setErrorState}/>
+                  return <SignIn auth={auth} setAuth={setAuth} showMessage={showMessage} />
                 }}  exact/>
                 <Route path={RouterPaths.profile}
                     render={ () => {
-                    return <EditProfile curUser={curUser} setErrorState={setErrorState} />
+                    return <EditProfile curUser={curUser} showMessage={showMessage} />
                     }} />
                 <Route path={RouterPaths.newArticle} exact 
                     render={ () => {
-                    return <CreateArticle isNew={true} auth={auth} setErrorState={setErrorState} errorState={errorState} />
+                    return <CreateArticle isNew={true} auth={auth}  showMessage={showMessage} />
                     }} />
-                <Route path={`/articles/:slug/edit`} render={
+                <Route path={`${RouterPaths.articles}/:slug/edit`} render={
        
                 ({match, location, history }) => {
 
                     const { slug } = match.params;
-                    return <CreateArticle slug={slug} isNew={false} setErrorState={setErrorState} errorState={errorState} />
+                    return <CreateArticle slug={slug} isNew={false} showMessage={showMessage} errorState={errorState} />
                 }}/>
                 <Route render={ () => <h1 style={{ marginTop: '50px', marginLeft: '40%'}}>Page not found!</h1>}/>
               </Switch>
