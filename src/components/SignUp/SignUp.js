@@ -45,6 +45,7 @@ const SignUp = ({ history, setErrorState }) => {
               setErrorState({ status: false, message: '' });
             }, 1000);
             reset();
+            localStorage.setItem('token', res.user.token);
             history.push(RouterPaths.signIn);
           }
         })
