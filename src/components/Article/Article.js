@@ -60,9 +60,7 @@ const Article = ({ itemId, history, auth, curUser, setErrorState }) => {
     date = format(x, 'MMMMMM dd, yyyy');
   }
 
-  // if (article.author) {
   author = article?.author?.username;
-  // }
 
   if (article.author) {
     imageUrl = article.author.image;
@@ -81,10 +79,15 @@ const Article = ({ itemId, history, auth, curUser, setErrorState }) => {
   };
 
   const confirmationHandler = () => {
-    testService.deleteArticle(
-      itemId,
-      /* eslint-disable-next-line */
-      (res) => {
+    testService
+      .deleteArticle(itemId)
+      .then((res) => res.json())
+      /* eslint-disable */ 
+      .then((res) => {
+        console.log(res);
+      })
+  
+      .catch((err) => {
         setErrorState({ status: true, message: 'Статья удалена!' });
         setTimeout(() => {
           setErrorState({ status: false, message: '' });
@@ -92,18 +95,9 @@ const Article = ({ itemId, history, auth, curUser, setErrorState }) => {
         setTimeout(() => {
           history.push(RouterPaths.articles);
         }, 400);
-      },
-      /* eslint-disable-next-line */
-      (err) => {
-        setErrorState({ status: true, message: 'Статья удалена!' });
-        setTimeout(() => {
-          setErrorState({ status: false, message: '' });
-        }, 1500);
-      }
-    );
-
+      });
+          /* eslint-enable */
     setDeleteOk(false);
-    history.push(RouterPaths.articles);
   };
 
   const cancelHandler = () => {
@@ -113,39 +107,47 @@ const Article = ({ itemId, history, auth, curUser, setErrorState }) => {
   const addToFavorites = () => {
     if (auth.auth) {
       if (!likedFlag) {
-        testService.toFavorites(
-          itemId,
-          /* eslint-disable-next-line */
-          (res) => console.log('result', res),
-          /* eslint-disable-next-line */
-          (err) => console.log('error:', err)
-        );
-        setLikedFlag(true);
-        setLikeCount(() => likeCount + 1);
-        const curList = JSON.parse(localStorage.getItem('liked_list'));
-        curList.push(itemId);
-        localStorage.setItem('liked_list', JSON.stringify(curList));
-        setErrorState({ status: true, message: 'Добавлено в избранное!' });
-        setTimeout(() => {
-          setErrorState({ status: false, message: '' });
-        }, 1500);
+        testService
+          .toFavorites(itemId)
+          .then((res) => res.json())
+          .then((res) => {
+            setLikedFlag(true);
+            setLikeCount(() => likeCount + 1);
+            const curList = JSON.parse(localStorage.getItem('liked_list'));
+            curList.push(itemId);
+            localStorage.setItem('liked_list', JSON.stringify(curList));
+            setErrorState({ status: true, message: 'Добавлено в избранное!' });
+            setTimeout(() => {
+              setErrorState({ status: false, message: '' });
+            }, 1500);
+          })
+          .catch((err) => {
+            setErrorState({ status: true, message: err.message });
+            setTimeout(() => {
+              setErrorState({ status: false, message: '' });
+            }, 1000);
+          });
       } else {
-        testService.unFavorites(
-          itemId,
-          /* eslint-disable-next-line */
-          (res) => console.log('result', res),
-          /* eslint-disable-next-line */
-          (err) => console.log('error:', err)
-        );
-        setLikedFlag(false);
-        setLikeCount(() => likeCount - 1);
-        const curList = JSON.parse(localStorage.getItem('liked_list'));
-        const newList = [...curList].filter((node) => node !== itemId);
-        localStorage.setItem('liked_list', JSON.stringify(newList));
-        setErrorState({ status: true, message: 'Удалено из избранного!' });
-        setTimeout(() => {
-          setErrorState({ status: false, message: '' });
-        }, 1500);
+        testService
+          .unFavorites(itemId)
+          .then((res) => res.json())
+          .then((res) => {
+            setLikedFlag(false);
+            setLikeCount(() => likeCount - 1);
+            const curList = JSON.parse(localStorage.getItem('liked_list'));
+            const newList = [...curList].filter((node) => node !== itemId);
+            localStorage.setItem('liked_list', JSON.stringify(newList));
+            setErrorState({ status: true, message: 'Удалено из избранного!' });
+            setTimeout(() => {
+              setErrorState({ status: false, message: '' });
+            }, 1500);
+          })
+          .catch((err) => {
+            setErrorState({ status: true, message: `Ошибка при попытке подписаться!${err.message}` });
+            setTimeout(() => {
+              setErrorState({ status: false, message: '' });
+            }, 1000);
+          });
       }
     } else {
       setErrorState({ status: true, message: 'Вам необходимо авторизоваться!' });

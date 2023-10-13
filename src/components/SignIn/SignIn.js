@@ -31,7 +31,6 @@ const SignIn = ({ history, setAuth, setErrorState }) => {
       })
       /* eslint-disable-next-line */
       .then((res) => {
-        console.log(res);
         localStorage.setItem('isAuth', JSON.stringify({ auth: true }));
         setAuth({ auth: true });
         history.push('/articles');

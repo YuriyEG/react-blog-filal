@@ -11,6 +11,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 
 
 import styles from './createArticle.module.css';
+import RouterPaths from '../../Paths/Paths';
 
 const CreateArticle = ({history, errorState, setErrorState, isNew, slug }) => {
 
@@ -64,6 +65,7 @@ const CreateArticle = ({history, errorState, setErrorState, isNew, slug }) => {
           setTimeout(() => {
             setErrorState({status: false, message: '' })
           }, 1500);
+          history.push(RouterPaths.articles);
         })
         .catch( err => {
           setErrorState({status: true, message: 'Ошибка при выполнении запроса!'});
@@ -121,13 +123,9 @@ const CreateArticle = ({history, errorState, setErrorState, isNew, slug }) => {
    
 
   }
-  useEffect( () => {
-    console.log('tags', tags);
-  }, [tags])
 
   useEffect( () => {
     if (article && !isNew) {
-          console.log(article);
     let receivedTags = [];
     article.tagList?.forEach( tag => {
       receivedTags.push( { id: Math.random()*Date.now(), value: tag })
@@ -138,8 +136,6 @@ const CreateArticle = ({history, errorState, setErrorState, isNew, slug }) => {
     setBody(article.body);
 
 
-
-   console.log(article);
     }
 
     

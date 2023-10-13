@@ -48,7 +48,6 @@ const EditProfile = ({ curUser, history, setErrorState }) => {
       })
       /* eslint-disable-next-line */
       .then((res) => {
-        console.log(res);
         setErrorState({ status: true, message: 'Данные отредактированы!' });
         setTimeout(() => {
           setErrorState({ status: false, message: '' });
