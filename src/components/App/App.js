@@ -39,7 +39,12 @@ const App = () => {
     localStorage.setItem('isAuth', JSON.stringify({ auth: false }));
     setAuth({ auth: false });
   }
-  testService.getCurrentUser().then( res => res.json()).then( res => setCurUser(res))
+  testService.getCurrentUser().then( res => res.json()).then( res => setCurUser(res)).catch(err => {
+    setErrorState( { status: true, message: 'Ошибка! ' + err.message });
+    setTimeout(() => {
+      setErrorState( { status: false, message: '' })
+    }, 1000);
+  })
  }, [])
   
  

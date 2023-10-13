@@ -46,7 +46,7 @@ const List = ({ history, setErrorState }) => {
       {articles.map((article) => (
         <ArticleItem
           article={article}
-          key={Math.random() * Date.now()}
+          key={articles.indexOf(article)}
           onItemSelected={(slug) => {
             history.push(`${RouterPaths.articles}/${slug}`);
           }}
