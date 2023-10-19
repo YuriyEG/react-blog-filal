@@ -2,6 +2,7 @@ import { useContext, useState } from 'react';
 import { Link, withRouter } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
+import { Spin } from 'antd';
 
 import ROUTER_PATHS from '../../Paths/Paths';
 import ServiceContext from '../../context';
@@ -11,7 +12,9 @@ import styles from './signIn.module.css';
 
 const SignIn = ({ history, setAuth, showMessage }) => {
   const [signBlocked, setSignBlocked] = useState(false);
+
   const testService = useContext(ServiceContext);
+
   const {
     register,
     formState: { errors },
@@ -55,6 +58,7 @@ const SignIn = ({ history, setAuth, showMessage }) => {
 
   return (
     <div className={styles.signIn}>
+      {signBlocked ? <Spin size="large" /> : null}
       <form className={styles.signIn__form} onSubmit={handleSubmit(onSubmit)}>
         <div className={styles.signIn__title}>Sign In</div>
 

@@ -2,6 +2,7 @@ import React, { useState, useContext } from 'react';
 import { useForm } from 'react-hook-form';
 import { Link, withRouter } from 'react-router-dom';
 import { yupResolver } from '@hookform/resolvers/yup';
+import { Spin } from 'antd';
 
 import Check from '../Check';
 import ServiceContext from '../../context';
@@ -23,14 +24,17 @@ const SignUp = ({ history, showMessage }) => {
 
   const [password, setPassword] = useState('');
   const [password2, setPassword2] = useState('');
+  const [sendingData, setSendingData] = useState(false);
 
   const onSubmit = (data) => {
     if (password === password2) {
+      setSendingData(true);
       testService
         .createUser(data)
         .then((res) => {
           if (!res.ok) {
             showMessage(`${res.ok} Error!`);
+            setSendingData(false);
           }
           return res.json();
         })
@@ -41,16 +45,19 @@ const SignUp = ({ history, showMessage }) => {
             reset();
             localStorage.setItem('token', res.user.token);
             history.push(ROUTER_PATHS.SIGN_IN);
+            setSendingData(false);
           }
         })
         .catch((err) => {
           showMessage(`Ошибка! ${err.message}`);
+          setSendingData(false);
         });
     }
   };
 
   return (
     <div className={styles.signUp}>
+      {sendingData ? <Spin size="large" /> : null}
       <form className={styles.signUp__form} onSubmit={handleSubmit(onSubmit)}>
         <div className={styles.signUp__title}>Create new account</div>
 
@@ -101,6 +108,7 @@ const SignUp = ({ history, showMessage }) => {
           <br />
         </div>
         <Check descript={'I agree to the processing of my personal information'} />
+
         <input type="submit" className={styles.signUp__submit} />
         <div className={styles.signUp__question}>
           Already have an account?{' '}
