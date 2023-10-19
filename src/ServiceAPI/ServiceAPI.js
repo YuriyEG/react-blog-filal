@@ -19,16 +19,13 @@ class ServiceApi extends Component {
     });
   }
 
-  async getArticles(onResponse, onError, limit = 5, offset = 0) {
-    fetch(`${this.baseUrl + this.forArticles}?limit=${limit}&&offset=${offset}`, {
+  async getArticles(limit = 5, offset = 0) {
+    return fetch(`${this.baseUrl + this.forArticles}?limit=${limit}&&offset=${offset}`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json;charset=utf-8',
       },
-    })
-      .then((res) => res.json())
-      .then((res) => onResponse(res))
-      .then((err) => onError(err));
+    });
   }
 
   async createArticle(receivedArticle) {

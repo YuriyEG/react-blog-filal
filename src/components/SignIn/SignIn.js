@@ -1,15 +1,16 @@
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import { Link, withRouter } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 
-import RouterPaths from '../../Paths/Paths';
+import ROUTER_PATHS from '../../Paths/Paths';
 import ServiceContext from '../../context';
 import { SignInSchema } from '../../YUP';
 
 import styles from './signIn.module.css';
 
 const SignIn = ({ history, setAuth, showMessage }) => {
+  const [signBlocked, setSignBlocked] = useState(false);
   const testService = useContext(ServiceContext);
   const {
     register,
@@ -21,28 +22,35 @@ const SignIn = ({ history, setAuth, showMessage }) => {
   });
 
   const onSubmit = (data) => {
-    testService
-      .login(data.email, data.password)
-      .then((res) => {
-        if (!res.ok) {
-          showMessage(`Ошибка! ${res.ok}`);
-        }
-        return res.json();
-      })
-      /* eslint-disable-next-line */
-      .then((res) => {
-        if (res.user) {
-          localStorage.setItem('isAuth', JSON.stringify({ auth: true }));
-          setAuth({ auth: true });
-          history.push('/articles');
-          showMessage('Вход выполнен!');
-          reset();
-        }
-      })
+    if (!signBlocked) {
+      setSignBlocked(true);
 
-      .catch((err) => {
-        showMessage(`Запрос завершился неудачно! ${err.message}`);
-      });
+      testService
+        .login(data.email, data.password)
+        .then((res) => {
+          if (!res.ok) {
+            showMessage('Вы ввели неправильный email или пароль. Проверьте данные!');
+            setSignBlocked(false);
+          }
+          return res.json();
+        })
+        /* eslint-disable-next-line */
+      .then((res) => {
+          if (res.user) {
+            localStorage.setItem('isAuth', JSON.stringify({ auth: true }));
+            setAuth({ auth: true });
+            history.push(ROUTER_PATHS.ARTICLES);
+            showMessage('Вход выполнен!');
+            reset();
+            setSignBlocked(false);
+          }
+        })
+
+        .catch((err) => {
+          showMessage(`Запрос завершился неудачно! ${err.message}`);
+          setSignBlocked(false);
+        });
+    }
   };
 
   return (
@@ -69,7 +77,7 @@ const SignIn = ({ history, setAuth, showMessage }) => {
         <input type="submit" className={styles.signIn__submit} name="submit_btn" value="Login" />
         <div className={styles.signIn__question}>
           Don&#8217;t have an account?{' '}
-          <Link to={RouterPaths.signUp} className={styles.signIn__questionBlue}>
+          <Link to={ROUTER_PATHS.SIGN_UP} className={styles.signIn__questionBlue}>
             Sign Up
           </Link>
         </div>

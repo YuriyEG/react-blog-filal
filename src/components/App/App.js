@@ -19,7 +19,7 @@ import Article from '../Article';
 import Alert from '../Alert';
 import ServiceContext from '../../context';
 import styles from './App.module.css';
-import RouterPaths from '../../Paths/Paths';
+import ROUTER_PATHS from '../../Paths/Paths';
 
 
 const App = () => {
@@ -59,29 +59,29 @@ const App = () => {
 
             <Alert errorState={errorState} />
             
-              <Header path={RouterPaths.base} exact auth={auth} setAuth={setAuth} showMessage={showMessage} curUser={curUser}  />
+              <Header path={ROUTER_PATHS.BASE} exact auth={auth} setAuth={setAuth} showMessage={showMessage} curUser={curUser}  />
               <Switch>
-              <Route path={RouterPaths.articles}  render={ e => { return <List showMessage={showMessage} /> }} exact />
-                <Route path={RouterPaths.base}  render={ e => { return <List showMessage={showMessage} /> }} exact />
-                <Route path={RouterPaths.articles + `/:id`} render={
+              <Route path={ROUTER_PATHS.ARTICLES}  render={ e => { return <List showMessage={showMessage} /> }} exact />
+                <Route path={ROUTER_PATHS.BASE}  render={ e => { return <List showMessage={showMessage} /> }} exact />
+                <Route path={ROUTER_PATHS.ARTICLES + `/:id`} render={
                   ({ match }) => {
                   const { id } = match.params;
                   return <Article itemId={id} auth={auth} curUser={curUser} showMessage={showMessage} />
                   }} exact />
-                <Route path={RouterPaths.signUp} render={ () => <SignUp auth={auth} showMessage={showMessage} />} exact/>
+                <Route path={ROUTER_PATHS.SIGN_UP} render={ () => <SignUp auth={auth} showMessage={showMessage} />} exact/>
         
-                <Route path={RouterPaths.signIn} render={ () => {
+                <Route path={ROUTER_PATHS.SIGN_IN} render={ () => {
                   return <SignIn auth={auth} setAuth={setAuth} showMessage={showMessage} />
                 }}  exact/>
-                <Route path={RouterPaths.profile}
+                <Route path={ROUTER_PATHS.PROFILE}
                     render={ () => {
                     return <EditProfile auth={auth} curUser={curUser} showMessage={showMessage} />
                     }} />
-                <Route path={RouterPaths.newArticle} exact 
+                <Route path={ROUTER_PATHS.NEW_ARTICLE} exact 
                     render={ () => {
                     return <CreateArticle isNew={true} curUser={curUser} auth={auth}  showMessage={showMessage} />
                     }} />
-                <Route path={`${RouterPaths.articles}/:slug/edit`} render={
+                <Route path={`${ROUTER_PATHS.ARTICLES}/:slug/edit`} render={
        
                 ({match, location, history }) => {
 

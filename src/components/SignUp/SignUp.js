@@ -6,7 +6,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import Check from '../Check';
 import ServiceContext from '../../context';
 import { SignUpSchema } from '../../YUP';
-import RouterPaths from '../../Paths/Paths';
+import ROUTER_PATHS from '../../Paths/Paths';
 
 import styles from './signUp.module.css';
 
@@ -40,7 +40,7 @@ const SignUp = ({ history, showMessage }) => {
             showMessage('Вы успешно зарегистрировались!');
             reset();
             localStorage.setItem('token', res.user.token);
-            history.push(RouterPaths.signIn);
+            history.push(ROUTER_PATHS.SIGN_IN);
           }
         })
         .catch((err) => {
@@ -104,7 +104,7 @@ const SignUp = ({ history, showMessage }) => {
         <input type="submit" className={styles.signUp__submit} />
         <div className={styles.signUp__question}>
           Already have an account?{' '}
-          <Link to={RouterPaths.signIn} className={styles.signUp__questionBlue}>
+          <Link to={ROUTER_PATHS.SIGN_IN} className={styles.signUp__questionBlue}>
             Sign In
           </Link>
         </div>

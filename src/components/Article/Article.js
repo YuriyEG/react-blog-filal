@@ -4,7 +4,7 @@ import Markdown from 'react-markdown';
 import { withRouter } from 'react-router-dom';
 
 import ServiceContext from '../../context';
-import RouterPaths from '../../Paths/Paths';
+import ROUTER_PATHS from '../../Paths/Paths';
 
 import styles from './article.module.css';
 
@@ -72,7 +72,7 @@ const Article = ({ itemId, history, auth, curUser, showMessage }) => {
   };
 
   const editHandler = () => {
-    history.push(`${RouterPaths.articles}/${itemId}/edit`);
+    history.push(`${ROUTER_PATHS.ARTICLES}/${itemId}/edit`);
   };
 
   const confirmationHandler = () => {
@@ -87,7 +87,7 @@ const Article = ({ itemId, history, auth, curUser, showMessage }) => {
       .catch((err) => {
         showMessage('Статья удалена!');
         setTimeout(() => {
-          history.push(RouterPaths.articles);
+          history.push(ROUTER_PATHS.ARTICLES);
         }, 1000);
       });
           /* eslint-enable */
@@ -135,7 +135,7 @@ const Article = ({ itemId, history, auth, curUser, showMessage }) => {
       }
     } else {
       showMessage('Вам необходимо авторизоваться!');
-      history.push(RouterPaths.signIn);
+      history.push(ROUTER_PATHS.SIGN_IN);
     }
   };
 

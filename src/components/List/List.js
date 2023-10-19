@@ -2,7 +2,6 @@
 
 import React, { useContext, useEffect, useState } from 'react';
 import { Pagination } from 'antd';
-import ServiceAPI from '../../ServiceAPI/ServiceAPI';
 import { withRouter } from 'react-router-dom';
 
 
@@ -19,6 +18,7 @@ const List = ({history}) => {
   const [totalPages, setTotalPages] = useState(1);
   const [currentPage, setCurrentPage] = useState(1);
   
+  
   const dataReceiver = (data) => {
     setArticles(data.articles);
     setTotalPages(Math.ceil(data.articlesCount/5))
@@ -27,20 +27,26 @@ const List = ({history}) => {
 
 
   useEffect(() => {
-    testService.getArticles((res) => dataReceiver(res), (err) => console.log(err), 5, (currentPage-1)*5);
+    testService.getArticles(5, (currentPage-1)*5)
+      .then( res => res.json())
+      .then( res => dataReceiver(res))
+      /* eslint-disable */
+      .catch( err => console.log(err))
   }, [currentPage]);
   
   
-
-  return (
-    <div className={styles.list}>
-      {articles.map((article) => (
-        <ArticleItem article={article} key={Math.random()*Date.now() }
+  const articlesList = articles.map((article) => (
+        <ArticleItem article={article} key={Math.random()}
           onItemSelected={ (slug) => {
             history.push(`/articles/${slug}`);
           }}
         />
-      ))}
+      ));
+  
+  return (
+    <div className={styles.list}>
+      
+      {  articlesList  }
       <div className={styles.list__pagination}>
         <Pagination defaultCurrent={0}
           pageSize={1}

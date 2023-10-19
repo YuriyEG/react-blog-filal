@@ -30,15 +30,11 @@ export const SignUpSchema = yup.object().shape({
 });
 
 export const CreateArticleSchema = yup.object().shape({
-    title: yup.string().min(3).max(20).required(),
-    description: yup.string().min(5).max(40),
-    body: yup.string()
-        .min(6)
-        .required(),
+    title: yup.string(),
+    description: yup.string(),
+    body: yup.string(),
      
     tags: yup.string()
-        .min(12)
-        .max(40)
         
 });
 

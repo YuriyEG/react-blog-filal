@@ -11,7 +11,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 
 
 import styles from './createArticle.module.css';
-import RouterPaths from '../../Paths/Paths';
+import ROUTER_PATHS from '../../Paths/Paths';
 
 const CreateArticle = ({history, showMessage, isNew, curUser, slug, auth }) => {
 
@@ -62,7 +62,7 @@ const CreateArticle = ({history, showMessage, isNew, curUser, slug, auth }) => {
         })
         .then( res => {
           showMessage('Статья успешно добавлена!')
-          history.push(RouterPaths.articles);
+          history.push(ROUTER_PATHS.ARTICLES);
         })
         .catch( err => {
           showMessage('Ошибка при выполнении запроса!')
@@ -82,7 +82,7 @@ const CreateArticle = ({history, showMessage, isNew, curUser, slug, auth }) => {
             reset();
             setTags([]);
       
-            history.push('/articles');
+            history.push(ROUTER_PATHS.ARTICLES);
           })
           .catch( err => {
             showMessage(`Ошибка при отправке! ${err.message}`)
@@ -105,7 +105,6 @@ const CreateArticle = ({history, showMessage, isNew, curUser, slug, auth }) => {
 
   const deleteTagHandler = (e) => {
     e.preventDefault();
-    console.log(e);
     let newTags = [...tags].filter( tag => tag.id != e.target.id );
     setTags(newTags);
    
