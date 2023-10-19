@@ -68,25 +68,25 @@ const App = () => {
                   const { id } = match.params;
                   return <Article itemId={id} auth={auth} curUser={curUser} showMessage={showMessage} />
                   }} exact />
-                <Route path={RouterPaths.signUp} render={ () => <SignUp showMessage={showMessage} />} exact/>
+                <Route path={RouterPaths.signUp} render={ () => <SignUp auth={auth} showMessage={showMessage} />} exact/>
         
                 <Route path={RouterPaths.signIn} render={ () => {
                   return <SignIn auth={auth} setAuth={setAuth} showMessage={showMessage} />
                 }}  exact/>
                 <Route path={RouterPaths.profile}
                     render={ () => {
-                    return <EditProfile curUser={curUser} showMessage={showMessage} />
+                    return <EditProfile auth={auth} curUser={curUser} showMessage={showMessage} />
                     }} />
                 <Route path={RouterPaths.newArticle} exact 
                     render={ () => {
-                    return <CreateArticle isNew={true} auth={auth}  showMessage={showMessage} />
+                    return <CreateArticle isNew={true} curUser={curUser} auth={auth}  showMessage={showMessage} />
                     }} />
                 <Route path={`${RouterPaths.articles}/:slug/edit`} render={
        
                 ({match, location, history }) => {
 
                     const { slug } = match.params;
-                    return <CreateArticle slug={slug} isNew={false} showMessage={showMessage} errorState={errorState} />
+                    return <CreateArticle auth={auth} slug={slug} curUser={curUser} isNew={false} showMessage={showMessage} errorState={errorState} />
                 }}/>
                 <Route render={ () => <h1 style={{ marginTop: '50px', marginLeft: '40%'}}>Page not found!</h1>}/>
               </Switch>

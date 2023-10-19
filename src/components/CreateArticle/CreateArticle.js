@@ -13,7 +13,7 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import styles from './createArticle.module.css';
 import RouterPaths from '../../Paths/Paths';
 
-const CreateArticle = ({history, showMessage, isNew, slug }) => {
+const CreateArticle = ({history, showMessage, isNew, curUser, slug, auth }) => {
 
   const [tags, setTags] = useState([]);
   const [curTag, setCurTag] = useState('');
@@ -130,7 +130,10 @@ const CreateArticle = ({history, showMessage, isNew, slug }) => {
 
   }, [article] )
 
-  return (
+
+
+  if ( auth.auth ) {
+      return (
     <div className={styles.createArticle}>
       <form className={styles.createArticle__form} onSubmit={handleSubmit(onSubmit)} >
         <div className={styles.createArticle__title}>{ isNew ? 'Create new article' : 'Edit article'}</div>
@@ -189,6 +192,10 @@ const CreateArticle = ({history, showMessage, isNew, slug }) => {
       </form>
     </div>
   );
+  } else {
+    return <h1 style={{ marginLeft: '200px' }}>Это приватная страница! Вам необходимо авторизоваться.</h1>
+  }
+
 };
 
 export default withRouter(CreateArticle);
