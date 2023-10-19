@@ -1,7 +1,7 @@
 
 
+https://yuriyeg-1uf3bqtn8-yuriyeg.vercel.app
 
-https://yuriyeg-efxytbq4l-yuriyeg.vercel.app
 
 
 # Getting Started with Create React App
